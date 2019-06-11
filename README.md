@@ -19,7 +19,7 @@ We will give examples based on creating a checker to verify character encoding, 
 * Change the groupId of the `publishing` block in the `build.gradle` file
   to an organization you belong to that can publish to Maven
   Central. Change the name of the package containing the source (currently
-  `org.checkerframework.checker.templatefora`) so that it reflects your
+  `org.checkerframework.checker.androidresource`) so that it reflects your
   organization's naming standards.
 * Change the copyright info in the `LICENSE` file.  You may change the license as well, if you wish.
 * Modify this README so that it describes your checker, instead of this text. :)

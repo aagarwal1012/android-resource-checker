@@ -1,4 +1,4 @@
-import org.checkerframework.checker.templatefora.qual.*;
+import org.checkerframework.checker.androidresource.qual.*;
 
 // Test basic subtyping relationships for the TemplateForA Checker.
 class SubtypeTest {

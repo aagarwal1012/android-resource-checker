@@ -10,12 +10,7 @@ import org.checkerframework.framework.qual.SubtypeOf;
 import org.checkerframework.framework.qual.TargetLocations;
 import org.checkerframework.framework.qual.TypeUseLocation;
 
-/**
- * The bottom type for the TemplateFora Checker's type system.
- */
 @SubtypeOf({AnyRes.class})
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
-@TargetLocations({TypeUseLocation.EXPLICIT_LOWER_BOUND, TypeUseLocation.EXPLICIT_UPPER_BOUND})
-@ImplicitFor(literals = LiteralKind.NULL, typeNames = java.lang.Void.class)
 public @interface IdRes {}

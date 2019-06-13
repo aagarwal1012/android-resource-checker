@@ -1,4 +1,4 @@
-package org.checkerframework.checker.androidresource.qual;
+package org.checkerframework.checker.androidresource.qual.res;
 
 import org.checkerframework.framework.qual.*;
 
@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
 @TargetLocations({TypeUseLocation.EXPLICIT_LOWER_BOUND, TypeUseLocation.EXPLICIT_UPPER_BOUND})
 @ImplicitFor(literals = LiteralKind.NULL, typeNames = java.lang.Void.class)
-public @interface LayoutRes {
+public @interface PluralsRes {
 }

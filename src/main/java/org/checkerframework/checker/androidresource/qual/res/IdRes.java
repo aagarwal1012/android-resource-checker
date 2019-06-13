@@ -1,4 +1,4 @@
-package org.checkerframework.checker.androidresource.qual;
+package org.checkerframework.checker.androidresource.qual.res;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

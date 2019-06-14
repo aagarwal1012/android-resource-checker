@@ -4,10 +4,7 @@ import org.checkerframework.checker.androidresource.qual.container.*;
 import org.checkerframework.checker.androidresource.qual.res.*;
 import org.checkerframework.framework.qual.*;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 @SubtypeOf({AnimatorRes.class, AnimRes.class, ArrayRes.class, AttrRes.class,
         BoolRes.class, ColorRes.class, DimenRes.class, DrawableRes.class, FractionRes.class,

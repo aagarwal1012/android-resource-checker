@@ -1,3 +1,5 @@
+package tests;
+
 import java.io.File;
 import java.util.List;
 import org.checkerframework.checker.androidresource.AndroidResourceChecker;
@@ -12,8 +14,8 @@ import org.junit.runners.Parameterized.Parameters;
  * errors and warnings; see
  * https://github.com/typetools/checker-framework/blob/master/checker/tests/README .
  */
-public class TemplateforaTest extends CheckerFrameworkPerDirectoryTest {
-    public TemplateforaTest(List<File> testFiles) {
+public class AndroidResourceTest extends CheckerFrameworkPerDirectoryTest {
+    public AndroidResourceTest(List<File> testFiles) {
         super(
                 testFiles,
                 AndroidResourceChecker.class,

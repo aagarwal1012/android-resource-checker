@@ -1,10 +1,10 @@
-//import org.checkerframework.checker.androidresource.qual.res.*;
+import org.checkerframework.checker.androidresource.qual.res.*;
 
-public class AndroidResourceTest {
-    public AndroidResourceTest() {
+class AndroidResourceTest {
+    AndroidResourceTest() {
     }
 
     void Test() {
-//        @XmlRes int xml_res = R.xml.file_paths;
+        @XmlRes int xml_res = R.xml.file_paths;
     }
 }

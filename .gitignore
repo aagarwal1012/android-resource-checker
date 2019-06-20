@@ -9,3 +9,6 @@
 .gradle
 
 out
+
+build
+tests/build

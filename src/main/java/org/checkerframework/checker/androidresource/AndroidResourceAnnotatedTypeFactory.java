@@ -102,25 +102,8 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
 
     public AndroidResourceAnnotatedTypeFactory(BaseTypeChecker checker) {
         super(checker);
+        postInit();
     }
-
-//    @Override
-//    protected void addComputedTypeAnnotations(
-//            Tree tree, AnnotatedTypeMirror type, boolean iUseFlow) {
-//
-//        Element element = TreeUtils.elementFromTree(tree);
-//
-//        if (element.getSimpleName().contentEquals("R")) {
-//            addAnnotation(type, RESOURCE);
-//        }
-//
-//        super.addComputedTypeAnnotations(tree, type, iUseFlow);
-//    }
-//
-//    private void addAnnotation(AnnotatedTypeMirror type, AnnotationMirror annotationMirror) {
-//        type.addAnnotation(annotationMirror);
-//    }
-
 
     @Override
     protected TreeAnnotator createTreeAnnotator() {

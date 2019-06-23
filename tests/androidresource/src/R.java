@@ -11,10 +11,10 @@ public final class R {
         }
     }
 
-    public final class strings {
+    public final class string {
         public static final int file_paths = 2131623936;
 
-        public strings() {
+        public string() {
         }
     }
 }

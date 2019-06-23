@@ -1,7 +1,6 @@
 package org.checkerframework.checker.androidresource;
 
 import com.sun.source.tree.MemberSelectTree;
-import com.sun.source.tree.VariableTree;
 import org.checkerframework.checker.androidresource.qual.Resource;
 import org.checkerframework.checker.androidresource.qual.container.*;
 import org.checkerframework.checker.androidresource.qual.res.*;
@@ -117,18 +116,6 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
             super(atypeFactory);
         }
 
-        @Override
-        public Void visitVariable(VariableTree node, AnnotatedTypeMirror annotatedTypeMirror) {
-
-            // Adding annotation to variable having type [R].
-            if (node.getType().getClass().getName().endsWith(".R")) {
-                annotatedTypeMirror.addAnnotation(RESOURCE);
-            }
-
-            return null;
-        }
-
-
         /*
          * Method for a tree node for a member access expression. For example:
          *       expression . identifier
@@ -136,140 +123,160 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
         @Override
         public Void visitMemberSelect(MemberSelectTree node, AnnotatedTypeMirror annotatedTypeMirror) {
 
-            String expressionClassName = node.getExpression().getClass().getName();
+            String expression = node.getExpression().toString();
+            String identifier = node.getIdentifier().toString();
 
-            // If expression is of type [R]
-            if (expressionClassName.endsWith(".R")) {
-                if (node.getIdentifier().length() != 0) {
-                    // Assigning annotations to containers
-                    switch (node.getIdentifier().toString()) {
-                        case "animator":
-                            annotatedTypeMirror.addAnnotation(ANIMATOR_CONTAINER);
-                            break;
-                        case "anim":
-                            annotatedTypeMirror.addAnnotation(ANIM_CONTAINER);
-                            break;
-                        case "array":
-                            annotatedTypeMirror.addAnnotation(ARRAY_CONTAINER);
-                            break;
-                        case "attr":
-                            annotatedTypeMirror.addAnnotation(ATTR_CONTAINER);
-                            break;
-                        case "bool":
-                            annotatedTypeMirror.addAnnotation(BOOL_CONTAINER);
-                            break;
-                        case "color":
-                            annotatedTypeMirror.addAnnotation(COLOR_CONTAINER);
-                            break;
-                        case "dimen":
-                            annotatedTypeMirror.addAnnotation(DIMEN_CONTAINER);
-                            break;
-                        case "drawable":
-                            annotatedTypeMirror.addAnnotation(DRAWABLE_CONTAINER);
-                            break;
-                        case "fraction":
-                            annotatedTypeMirror.addAnnotation(FRACTION_CONTAINER);
-                            break;
-                        case "id":
-                            annotatedTypeMirror.addAnnotation(ID_CONTAINER);
-                            break;
-                        case "integer":
-                            annotatedTypeMirror.addAnnotation(INTEGER_CONTAINER);
-                            break;
-                        case "interpolator":
-                            annotatedTypeMirror.addAnnotation(INTERPOLATOR_CONTAINER);
-                            break;
-                        case "layout":
-                            annotatedTypeMirror.addAnnotation(LAYOUT_CONTAINER);
-                            break;
-                        case "menu":
-                            annotatedTypeMirror.addAnnotation(MENU_CONTAINER);
-                            break;
-                        case "plurals":
-                            annotatedTypeMirror.addAnnotation(PLURALS_CONTAINER);
-                            break;
-                        case "raw":
-                            annotatedTypeMirror.addAnnotation(RAW_CONTAINER);
-                            break;
-                        case "string":
-                            annotatedTypeMirror.addAnnotation(STRING_CONTAINER);
-                            break;
-                        case "styleable":
-                            annotatedTypeMirror.addAnnotation(STYLEABLE_CONTAINER);
-                            break;
-                        case "xml":
-                            annotatedTypeMirror.addAnnotation(XML_CONTAINER);
-                            break;
-                    }
-                }
-            }
+            assignContainerAnnotations(annotatedTypeMirror, expression, identifier);
 
-            // Add annotation to container elements.
-            if (expressionClassName.contains(".R.")) {
-                int index = expressionClassName.indexOf(".R.");
-                String endPart = expressionClassName.substring(index + 3);
-                switch (endPart) {
-                    case "animator":
-                        annotatedTypeMirror.addAnnotation(ANIMATOR_RES);
-                        break;
-                    case "anim":
-                        annotatedTypeMirror.addAnnotation(ANIM_RES);
-                        break;
-                    case "array":
-                        annotatedTypeMirror.addAnnotation(ARRAY_RES);
-                        break;
-                    case "attr":
-                        annotatedTypeMirror.addAnnotation(ATTR_RES);
-                        break;
-                    case "bool":
-                        annotatedTypeMirror.addAnnotation(BOOL_RES);
-                        break;
-                    case "color":
-                        annotatedTypeMirror.addAnnotation(COLOR_RES);
-                        break;
-                    case "dimen":
-                        annotatedTypeMirror.addAnnotation(DIMEN_RES);
-                        break;
-                    case "drawable":
-                        annotatedTypeMirror.addAnnotation(DRAWABLE_RES);
-                        break;
-                    case "fraction":
-                        annotatedTypeMirror.addAnnotation(FRACTION_RES);
-                        break;
-                    case "id":
-                        annotatedTypeMirror.addAnnotation(ID_RES);
-                        break;
-                    case "integer":
-                        annotatedTypeMirror.addAnnotation(INTEGER_RES);
-                        break;
-                    case "interpolator":
-                        annotatedTypeMirror.addAnnotation(INTERPOLATOR_RES);
-                        break;
-                    case "layout":
-                        annotatedTypeMirror.addAnnotation(LAYOUT_RES);
-                        break;
-                    case "menu":
-                        annotatedTypeMirror.addAnnotation(MENU_RES);
-                        break;
-                    case "plurals":
-                        annotatedTypeMirror.addAnnotation(PLURALS_RES);
-                        break;
-                    case "raw":
-                        annotatedTypeMirror.addAnnotation(RAW_RES);
-                        break;
-                    case "string":
-                        annotatedTypeMirror.addAnnotation(STRING_RES);
-                        break;
-                    case "styleable":
-                        annotatedTypeMirror.addAnnotation(STYLEABLE_RES);
-                        break;
-                    case "xml":
-                        annotatedTypeMirror.addAnnotation(XML_RES);
-                        break;
-                }
-            }
+            assignResAnnotations(annotatedTypeMirror, expression);
+
+//            System.out.println("Expression: " + node.getExpression() + ", Identifier: " + node.getIdentifier()
+//                    + ", ATM: " + annotatedTypeMirror.toString() + "\n");
 
             return null;
         }
+
+        /**
+         * Assign @XXXRes annotations to member select.
+         *
+         * @param annotatedTypeMirror
+         * @param expression
+         */
+        private void assignResAnnotations(AnnotatedTypeMirror annotatedTypeMirror, String expression) {
+            if (expression.startsWith("R.")) {
+                String containerExpression = expression.substring(2);
+                switch (containerExpression) {
+                    case "animator":
+                        annotatedTypeMirror.replaceAnnotation(ANIMATOR_RES);
+                        break;
+                    case "anim":
+                        annotatedTypeMirror.replaceAnnotation(ANIM_RES);
+                        break;
+                    case "array":
+                        annotatedTypeMirror.replaceAnnotation(ARRAY_RES);
+                        break;
+                    case "attr":
+                        annotatedTypeMirror.replaceAnnotation(ATTR_RES);
+                        break;
+                    case "bool":
+                        annotatedTypeMirror.replaceAnnotation(BOOL_RES);
+                        break;
+                    case "color":
+                        annotatedTypeMirror.replaceAnnotation(COLOR_RES);
+                        break;
+                    case "dimen":
+                        annotatedTypeMirror.replaceAnnotation(DIMEN_RES);
+                        break;
+                    case "drawable":
+                        annotatedTypeMirror.replaceAnnotation(DRAWABLE_RES);
+                        break;
+                    case "fraction":
+                        annotatedTypeMirror.replaceAnnotation(FRACTION_RES);
+                        break;
+                    case "id":
+                        annotatedTypeMirror.replaceAnnotation(ID_RES);
+                        break;
+                    case "integer":
+                        annotatedTypeMirror.replaceAnnotation(INTEGER_RES);
+                        break;
+                    case "interpolator":
+                        annotatedTypeMirror.replaceAnnotation(INTERPOLATOR_RES);
+                        break;
+                    case "layout":
+                        annotatedTypeMirror.replaceAnnotation(LAYOUT_RES);
+                        break;
+                    case "menu":
+                        annotatedTypeMirror.replaceAnnotation(MENU_RES);
+                        break;
+                    case "plurals":
+                        annotatedTypeMirror.replaceAnnotation(PLURALS_RES);
+                        break;
+                    case "raw":
+                        annotatedTypeMirror.replaceAnnotation(RAW_RES);
+                        break;
+                    case "string":
+                        annotatedTypeMirror.replaceAnnotation(STRING_RES);
+                        break;
+                    case "styleable":
+                        annotatedTypeMirror.replaceAnnotation(STYLEABLE_RES);
+                        break;
+                    case "xml":
+                        annotatedTypeMirror.replaceAnnotation(XML_RES);
+                        break;
+                }
+            }
+        }
+
+        /**
+         * Assigning @XXXContainer annotations to member select.
+         *
+         * @param annotatedTypeMirror
+         * @param expression
+         * @param identifier
+         */
+        private void assignContainerAnnotations(AnnotatedTypeMirror annotatedTypeMirror, String expression, String identifier) {
+            if (expression.equals("R")) {
+                switch (identifier) {
+                    case "animator":
+                        annotatedTypeMirror.replaceAnnotation(ANIMATOR_CONTAINER);
+                        break;
+                    case "anim":
+                        annotatedTypeMirror.replaceAnnotation(ANIM_CONTAINER);
+                        break;
+                    case "array":
+                        annotatedTypeMirror.replaceAnnotation(ARRAY_CONTAINER);
+                        break;
+                    case "attr":
+                        annotatedTypeMirror.replaceAnnotation(ATTR_CONTAINER);
+                        break;
+                    case "bool":
+                        annotatedTypeMirror.replaceAnnotation(BOOL_CONTAINER);
+                        break;
+                    case "color":
+                        annotatedTypeMirror.replaceAnnotation(COLOR_CONTAINER);
+                        break;
+                    case "dimen":
+                        annotatedTypeMirror.replaceAnnotation(DIMEN_CONTAINER);
+                        break;
+                    case "drawable":
+                        annotatedTypeMirror.replaceAnnotation(DRAWABLE_CONTAINER);
+                        break;
+                    case "fraction":
+                        annotatedTypeMirror.replaceAnnotation(FRACTION_CONTAINER);
+                        break;
+                    case "id":
+                        annotatedTypeMirror.replaceAnnotation(ID_CONTAINER);
+                        break;
+                    case "integer":
+                        annotatedTypeMirror.replaceAnnotation(INTEGER_CONTAINER);
+                        break;
+                    case "interpolator":
+                        annotatedTypeMirror.replaceAnnotation(INTERPOLATOR_CONTAINER);
+                        break;
+                    case "layout":
+                        annotatedTypeMirror.replaceAnnotation(LAYOUT_CONTAINER);
+                        break;
+                    case "menu":
+                        annotatedTypeMirror.replaceAnnotation(MENU_CONTAINER);
+                        break;
+                    case "plurals":
+                        annotatedTypeMirror.replaceAnnotation(PLURALS_CONTAINER);
+                        break;
+                    case "raw":
+                        annotatedTypeMirror.replaceAnnotation(RAW_CONTAINER);
+                        break;
+                    case "string":
+                        annotatedTypeMirror.replaceAnnotation(STRING_CONTAINER);
+                        break;
+                    case "styleable":
+                        annotatedTypeMirror.replaceAnnotation(STYLEABLE_CONTAINER);
+                        break;
+                    case "xml":
+                        annotatedTypeMirror.replaceAnnotation(XML_CONTAINER);
+                        break;
+                }
+            }
+        }
+
     }
 }

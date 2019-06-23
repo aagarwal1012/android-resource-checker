@@ -2,6 +2,7 @@ package tests;
 
 import java.io.File;
 import java.util.List;
+
 import org.checkerframework.checker.androidresource.AndroidResourceChecker;
 import org.checkerframework.framework.test.CheckerFrameworkPerDirectoryTest;
 import org.junit.runners.Parameterized.Parameters;
@@ -22,11 +23,12 @@ public class AndroidResourceTest extends CheckerFrameworkPerDirectoryTest {
                 "androidresource",
                 "-Anomsgtext",
                 "-Astubs=stubs/",
-                "-nowarn");
+                "-nowarn",
+                "-Afilenames", "-Ashowchecks", "-AshowInferenceSteps");
     }
 
     @Parameters
     public static String[] getTestDirs() {
-        return new String[] {"androidresource"};
+        return new String[]{"androidresource"};
     }
 }

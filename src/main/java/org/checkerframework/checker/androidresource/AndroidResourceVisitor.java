@@ -1,8 +1,10 @@
 package org.checkerframework.checker.androidresource;
 
 import com.sun.source.tree.BinaryTree;
+import com.sun.source.tree.CompoundAssignmentTree;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.Tree.Kind;
+import org.checkerframework.checker.androidresource.qual.res.*;
 import org.checkerframework.common.basetype.BaseTypeChecker;
 import org.checkerframework.common.basetype.BaseTypeVisitor;
 import org.checkerframework.framework.source.Result;
@@ -13,6 +15,9 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
         super(checker);
     }
 
+    /**
+     * Gives a warning whenever operands in a binary assignment have a annotation of type @XXXRes.
+     */
     @Override
     public Void visitBinary(BinaryTree node, Void aVoid) {
 
@@ -23,64 +28,53 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
         Kind kind = node.getKind();
 
-        switch (kind){
-            case DIVIDE:
-            case REMAINDER:
-                if (leftOperandType.hasAnnotation())
-                break;
+        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-            case RIGHT_SHIFT:
-                if (leftOpType.hasAnnotation(Unsigned.class)
-                        && !isMaskedShiftEitherSignedness(node)
-                        && !isCastedShiftEitherSignedness(node)) {
-                    checker.report(Result.failure("shift.signed", kind), leftOp);
-                }
-                break;
-
-            case UNSIGNED_RIGHT_SHIFT:
-                if (leftOpType.hasAnnotation(Signed.class)
-                        && !isMaskedShiftEitherSignedness(node)
-                        && !isCastedShiftEitherSignedness(node)) {
-                    checker.report(Result.failure("shift.unsigned", kind), leftOp);
-                }
-                break;
-
-            case LEFT_SHIFT:
-                break;
-
-            case GREATER_THAN:
-            case GREATER_THAN_EQUAL:
-            case LESS_THAN:
-            case LESS_THAN_EQUAL:
-                if (leftOpType.hasAnnotation(Unsigned.class)) {
-                    checker.report(Result.failure("comparison.unsignedlhs"), leftOp);
-                } else if (rightOpType.hasAnnotation(Unsigned.class)) {
-                    checker.report(Result.failure("comparison.unsignedrhs"), rightOp);
-                }
-                break;
-
-            case EQUAL_TO:
-            case NOT_EQUAL_TO:
-                if (leftOpType.hasAnnotation(Unsigned.class)
-                        && rightOpType.hasAnnotation(Signed.class)) {
-                    checker.report(Result.failure("comparison.mixed.unsignedlhs"), node);
-                } else if (leftOpType.hasAnnotation(Signed.class)
-                        && rightOpType.hasAnnotation(Unsigned.class)) {
-                    checker.report(Result.failure("comparison.mixed.unsignedrhs"), node);
-                }
-                break;
-
-            default:
-                if (leftOpType.hasAnnotation(Unsigned.class)
-                        && rightOpType.hasAnnotation(Signed.class)) {
-                    checker.report(Result.failure("operation.mixed.unsignedlhs", kind), node);
-                } else if (leftOpType.hasAnnotation(Signed.class)
-                        && rightOpType.hasAnnotation(Unsigned.class)) {
-                    checker.report(Result.failure("operation.mixed.unsignedrhs", kind), node);
-                }
-                break;
+        if (checkOperandsHasResAnnotations(leftOperandType) | checkOperandsHasResAnnotations(rightOperandType)) {
+            checker.report(Result.warning("binary.operation.not.allowed", kind), node);
         }
 
         return super.visitBinary(node, aVoid);
+    }
+
+    /**
+     * Gives a warning whenever expression/variable in a compound assignment have a annotation of type @XXXRes.
+     */
+    @Override
+    public Void visitCompoundAssignment(CompoundAssignmentTree node, Void p) {
+
+        ExpressionTree expression = node.getExpression();
+        ExpressionTree variable = node.getVariable();
+        AnnotatedTypeMirror expressionType = atypeFactory.getAnnotatedType(expression);
+        AnnotatedTypeMirror variableType = atypeFactory.getAnnotatedType(variable);
+
+        Kind kind = node.getKind();
+
+        System.out.println(node.toString() + ", " + node.getKind() + "\n");
+
+        if (checkOperandsHasResAnnotations(expressionType) | checkOperandsHasResAnnotations(variableType)) {
+            checker.report(Result.warning("compound.assignment.not.allowed", kind), node);
+        }
+
+        return super.visitCompoundAssignment(node, p);
+    }
+
+    /**
+     *  Method to check XXXRes annotations.
+     *
+     * @param annotatedTypeMirror
+     * @return whether the given [AnnotatedTypeMirror] contains the XXXRes annoations or not.
+     */
+    public boolean checkOperandsHasResAnnotations(AnnotatedTypeMirror annotatedTypeMirror) {
+        return annotatedTypeMirror.hasAnnotation(AnimatorRes.class) | annotatedTypeMirror.hasAnnotation(AnimRes.class)
+                | annotatedTypeMirror.hasAnnotation(AnyRes.class) | annotatedTypeMirror.hasAnnotation(ArrayRes.class)
+                | annotatedTypeMirror.hasAnnotation(AttrRes.class) | annotatedTypeMirror.hasAnnotation(BoolRes.class)
+                | annotatedTypeMirror.hasAnnotation(ColorRes.class) | annotatedTypeMirror.hasAnnotation(DimenRes.class)
+                | annotatedTypeMirror.hasAnnotation(DrawableRes.class) | annotatedTypeMirror.hasAnnotation(FractionRes.class)
+                | annotatedTypeMirror.hasAnnotation(IdRes.class) | annotatedTypeMirror.hasAnnotation(IntegerRes.class)
+                | annotatedTypeMirror.hasAnnotation(InterpolatorRes.class) | annotatedTypeMirror.hasAnnotation(LayoutRes.class)
+                | annotatedTypeMirror.hasAnnotation(MenuRes.class) | annotatedTypeMirror.hasAnnotation(PluralsRes.class)
+                | annotatedTypeMirror.hasAnnotation(RawRes.class) | annotatedTypeMirror.hasAnnotation(StringRes.class)
+                | annotatedTypeMirror.hasAnnotation(StyleableRes.class) | annotatedTypeMirror.hasAnnotation(XmlRes.class);
     }
 }

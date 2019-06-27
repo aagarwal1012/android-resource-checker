@@ -96,6 +96,49 @@ class AndroidResourceTest {
 
     }
 
+    void AnyResTest() {
+
+        init();
+
+        any_res = R.raw.raw_res;
+        any_res = R.plurals.plurals_res;
+
+        any_res = xml_res;
+        any_res = string_res;
+
+        // :: error: (assignment.type.incompatible)
+        any_res = a;
+
+        c = any_res;
+
+
+        // :: error: (assignment.type.incompatible)
+        any_res = a + b;
+
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        any_res = a / xml_res;
+
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        any_res = any_res * b;
+
+        // :: warning: (binary.operation.not.allowed)
+        a = animator_res - styleable_res;
+
+
+        // :: warning: (compound.assignment.not.allowed)
+        any_res += a;
+
+        // :: warning: (compound.assignment.not.allowed)
+        a *= any_res;
+
+        // :: warning: (compound.assignment.not.allowed)
+        any_res /= anim_res;
+
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.not.allowed)
+        any_res -= b;
+
+    }
+
     void Test() {
         @XmlRes int xml_res = R.xml.file_paths;
 

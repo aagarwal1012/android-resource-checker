@@ -17,84 +17,201 @@ import javax.lang.model.element.AnnotationMirror;
 
 public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactory {
 
+    /**
+     * The @ResourceTop annotation.
+     */
     protected final AnnotationMirror RESOURCE_TOP =
             AnnotationBuilder.fromClass(elements, ResourceTop.class);
 
+    /**
+     * The @AnimatorRes annotation.
+     */
     protected final AnnotationMirror ANIMATOR_RES =
             AnnotationBuilder.fromClass(elements, AnimatorRes.class);
+    /**
+     * The @AnimRes annotation.
+     */
     protected final AnnotationMirror ANIM_RES =
             AnnotationBuilder.fromClass(elements, AnimRes.class);
+    /**
+     * The @ArrayRes annotation.
+     */
     protected final AnnotationMirror ARRAY_RES =
             AnnotationBuilder.fromClass(elements, ArrayRes.class);
+    /**
+     * The @AttrRes annotation.
+     */
     protected final AnnotationMirror ATTR_RES =
             AnnotationBuilder.fromClass(elements, AttrRes.class);
+    /**
+     * The @BoolRes annotation.
+     */
     protected final AnnotationMirror BOOL_RES =
             AnnotationBuilder.fromClass(elements, BoolRes.class);
+    /**
+     * The @ColorRes annotation.
+     */
     protected final AnnotationMirror COLOR_RES =
             AnnotationBuilder.fromClass(elements, ColorRes.class);
+    /**
+     * The @DimenRes annotation.
+     */
     protected final AnnotationMirror DIMEN_RES =
             AnnotationBuilder.fromClass(elements, DimenRes.class);
+    /**
+     * The @DrawableRes annotation.
+     */
     protected final AnnotationMirror DRAWABLE_RES =
             AnnotationBuilder.fromClass(elements, DrawableRes.class);
+    /**
+     * The @FractionRes annotation.
+     */
     protected final AnnotationMirror FRACTION_RES =
             AnnotationBuilder.fromClass(elements, FractionRes.class);
+    /**
+     * The @IdRes annotation.
+     */
     protected final AnnotationMirror ID_RES =
             AnnotationBuilder.fromClass(elements, IdRes.class);
+    /**
+     * The @IntegerRes annotation.
+     */
     protected final AnnotationMirror INTEGER_RES =
             AnnotationBuilder.fromClass(elements, IntegerRes.class);
+    /**
+     * The @InterpolatorRes annotation.
+     */
     protected final AnnotationMirror INTERPOLATOR_RES =
             AnnotationBuilder.fromClass(elements, InterpolatorRes.class);
+    /**
+     * The @LayoutRes annotation.
+     */
     protected final AnnotationMirror LAYOUT_RES =
             AnnotationBuilder.fromClass(elements, LayoutRes.class);
+    /**
+     * The @MenuRes annotation.
+     */
     protected final AnnotationMirror MENU_RES =
             AnnotationBuilder.fromClass(elements, MenuRes.class);
+    /**
+     * The @PluralsRes annotation.
+     */
     protected final AnnotationMirror PLURALS_RES =
             AnnotationBuilder.fromClass(elements, PluralsRes.class);
+    /**
+     * The @RawRes annotation.
+     */
     protected final AnnotationMirror RAW_RES =
             AnnotationBuilder.fromClass(elements, RawRes.class);
+    /**
+     * The @StringRes annotation.
+     */
     protected final AnnotationMirror STRING_RES =
             AnnotationBuilder.fromClass(elements, StringRes.class);
+    /**
+     * The @StyleableRes annotation.
+     */
     protected final AnnotationMirror STYLEABLE_RES =
             AnnotationBuilder.fromClass(elements, StyleableRes.class);
+    /**
+     * The @XmlRes annotation.
+     */
     protected final AnnotationMirror XML_RES =
             AnnotationBuilder.fromClass(elements, XmlRes.class);
 
+    /**
+     * The @AnimatorContainer annotation.
+     */
     protected final AnnotationMirror ANIMATOR_CONTAINER =
             AnnotationBuilder.fromClass(elements, AnimatorContainer.class);
+    /**
+     * The @AnimContainer annotation.
+     */
     protected final AnnotationMirror ANIM_CONTAINER =
             AnnotationBuilder.fromClass(elements, AnimContainer.class);
+    /**
+     * The @ArrayContainer annotation.
+     */
     protected final AnnotationMirror ARRAY_CONTAINER =
             AnnotationBuilder.fromClass(elements, ArrayContainer.class);
+    /**
+     * The @AttrContainer annotation.
+     */
     protected final AnnotationMirror ATTR_CONTAINER =
             AnnotationBuilder.fromClass(elements, AttrContainer.class);
+    /**
+     * The @BoolContainer annotation.
+     */
     protected final AnnotationMirror BOOL_CONTAINER =
             AnnotationBuilder.fromClass(elements, BoolContainer.class);
+    /**
+     * The @ColorContainer annotation.
+     */
     protected final AnnotationMirror COLOR_CONTAINER =
             AnnotationBuilder.fromClass(elements, ColorContainer.class);
+    /**
+     * The @DimenContainer annotation.
+     */
     protected final AnnotationMirror DIMEN_CONTAINER =
             AnnotationBuilder.fromClass(elements, DimenContainer.class);
+    /**
+     * The @DrawableContainer annotation.
+     */
     protected final AnnotationMirror DRAWABLE_CONTAINER =
             AnnotationBuilder.fromClass(elements, DrawableContainer.class);
+    /**
+     * The @FractionContainer annotation.
+     */
     protected final AnnotationMirror FRACTION_CONTAINER =
             AnnotationBuilder.fromClass(elements, FractionContainer.class);
+    /**
+     * The @IdContainer annotation.
+     */
     protected final AnnotationMirror ID_CONTAINER =
             AnnotationBuilder.fromClass(elements, IdContainer.class);
+    /**
+     * The @IntegerContainer annotation.
+     */
     protected final AnnotationMirror INTEGER_CONTAINER =
             AnnotationBuilder.fromClass(elements, IntegerContainer.class);
+    /**
+     * The @InterpolatorContainer annotation.
+     */
     protected final AnnotationMirror INTERPOLATOR_CONTAINER =
             AnnotationBuilder.fromClass(elements, InterpolatorContainer.class);
+    /**
+     * The @LayoutContainer annotation.
+     */
     protected final AnnotationMirror LAYOUT_CONTAINER =
             AnnotationBuilder.fromClass(elements, LayoutContainer.class);
+    /**
+     * The @MenuContainer annotation.
+     */
     protected final AnnotationMirror MENU_CONTAINER =
             AnnotationBuilder.fromClass(elements, MenuContainer.class);
+    /**
+     * The @PluralsContainer annotation.
+     */
     protected final AnnotationMirror PLURALS_CONTAINER =
             AnnotationBuilder.fromClass(elements, PluralsContainer.class);
+    /**
+     * The @RawContainer annotation.
+     */
     protected final AnnotationMirror RAW_CONTAINER =
             AnnotationBuilder.fromClass(elements, RawContainer.class);
+    /**
+     * The @StringContainer annotation.
+     */
     protected final AnnotationMirror STRING_CONTAINER =
             AnnotationBuilder.fromClass(elements, StringContainer.class);
+    /**
+     * The @StyleableContainer annotation.
+     */
     protected final AnnotationMirror STYLEABLE_CONTAINER =
             AnnotationBuilder.fromClass(elements, StyleableContainer.class);
+    /**
+     * The @XmlContainer annotation.
+     */
     protected final AnnotationMirror XML_CONTAINER =
             AnnotationBuilder.fromClass(elements, XmlContainer.class);
 
@@ -139,83 +256,83 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
          * Assign @XXXRes annotations to member select.
          * First it checks whether the expression has the @XXXContainer annotation
          * then allocates the corresponding @XXXRes annotation.
-         *
-         * @param annotatedTypeMirror
-         * @param expressionTree
          */
         private void assignResAnnotations(AnnotatedTypeMirror annotatedTypeMirror, ExpressionTree expressionTree) {
 
             AnnotatedTypeMirror expressionAnnotatedTypeMirror = getAnnotatedType(expressionTree);
 
-            // Get the annotation from the [ResourceTop] sub-hierarchy, if such an annotation targets this type; otherwise returns null.
+            // Get the annotation from the {@ResourceTop} sub-hierarchy,
+            // if such an annotation targets this type; otherwise returns null.
             AnnotationMirror expressionContainerAnnotation = expressionAnnotatedTypeMirror.getAnnotationInHierarchy(RESOURCE_TOP);
 
-            if (expressionContainerAnnotation.equals(ANIMATOR_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(ANIMATOR_RES);
+            // checks if {expressionContainerAnnotation} is not null.
+            if (expressionContainerAnnotation != null) {
 
-            } else if (expressionContainerAnnotation.equals(ANIM_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(ANIM_RES);
+                if (expressionContainerAnnotation.equals(ANIMATOR_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(ANIMATOR_RES);
 
-            } else if (expressionContainerAnnotation.equals(ARRAY_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(ARRAY_RES);
+                } else if (expressionContainerAnnotation.equals(ANIM_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(ANIM_RES);
 
-            } else if (expressionContainerAnnotation.equals(ATTR_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(ATTR_RES);
+                } else if (expressionContainerAnnotation.equals(ARRAY_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(ARRAY_RES);
 
-            } else if (expressionContainerAnnotation.equals(BOOL_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(BOOL_RES);
+                } else if (expressionContainerAnnotation.equals(ATTR_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(ATTR_RES);
 
-            } else if (expressionContainerAnnotation.equals(COLOR_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(COLOR_RES);
+                } else if (expressionContainerAnnotation.equals(BOOL_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(BOOL_RES);
 
-            } else if (expressionContainerAnnotation.equals(DIMEN_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(DIMEN_RES);
+                } else if (expressionContainerAnnotation.equals(COLOR_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(COLOR_RES);
 
-            } else if (expressionContainerAnnotation.equals(DRAWABLE_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(DRAWABLE_RES);
+                } else if (expressionContainerAnnotation.equals(DIMEN_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(DIMEN_RES);
 
-            } else if (expressionContainerAnnotation.equals(FRACTION_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(FRACTION_RES);
+                } else if (expressionContainerAnnotation.equals(DRAWABLE_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(DRAWABLE_RES);
 
-            } else if (expressionContainerAnnotation.equals(ID_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(ID_RES);
+                } else if (expressionContainerAnnotation.equals(FRACTION_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(FRACTION_RES);
 
-            } else if (expressionContainerAnnotation.equals(INTEGER_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(INTEGER_RES);
+                } else if (expressionContainerAnnotation.equals(ID_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(ID_RES);
 
-            } else if (expressionContainerAnnotation.equals(INTERPOLATOR_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(INTERPOLATOR_RES);
+                } else if (expressionContainerAnnotation.equals(INTEGER_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(INTEGER_RES);
 
-            } else if (expressionContainerAnnotation.equals(LAYOUT_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(LAYOUT_RES);
+                } else if (expressionContainerAnnotation.equals(INTERPOLATOR_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(INTERPOLATOR_RES);
 
-            } else if (expressionContainerAnnotation.equals(MENU_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(MENU_RES);
+                } else if (expressionContainerAnnotation.equals(LAYOUT_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(LAYOUT_RES);
 
-            } else if (expressionContainerAnnotation.equals(PLURALS_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(PLURALS_RES);
+                } else if (expressionContainerAnnotation.equals(MENU_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(MENU_RES);
 
-            } else if (expressionContainerAnnotation.equals(RAW_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(RAW_RES);
+                } else if (expressionContainerAnnotation.equals(PLURALS_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(PLURALS_RES);
 
-            } else if (expressionContainerAnnotation.equals(STRING_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(STRING_RES);
+                } else if (expressionContainerAnnotation.equals(RAW_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(RAW_RES);
 
-            } else if (expressionContainerAnnotation.equals(STYLEABLE_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(STYLEABLE_RES);
+                } else if (expressionContainerAnnotation.equals(STRING_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(STRING_RES);
 
-            } else if (expressionContainerAnnotation.equals(XML_CONTAINER)) {
-                annotatedTypeMirror.replaceAnnotation(XML_RES);
+                } else if (expressionContainerAnnotation.equals(STYLEABLE_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(STYLEABLE_RES);
+
+                } else if (expressionContainerAnnotation.equals(XML_CONTAINER)) {
+                    annotatedTypeMirror.replaceAnnotation(XML_RES);
+                }
+
             }
+
 
         }
 
         /**
          * Assigning @XXXContainer annotations to member select.
-         *
-         * @param annotatedTypeMirror
-         * @param expression
-         * @param identifier
          */
         private void assignContainerAnnotations(AnnotatedTypeMirror annotatedTypeMirror, String expression, String identifier) {
             if (expression.equals("R")) {

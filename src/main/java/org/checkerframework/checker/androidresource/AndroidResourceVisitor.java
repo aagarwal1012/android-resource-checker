@@ -30,7 +30,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
 //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-        if (checkOperandsHasResAnnotations(leftOperandType) | checkOperandsHasResAnnotations(rightOperandType)) {
+        if (checkOperandsHasResAnnotations(leftOperandType) || checkOperandsHasResAnnotations(rightOperandType)) {
             checker.report(Result.warning("binary.operation.not.allowed", kind), node);
         }
 
@@ -52,7 +52,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
 //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-        if (checkOperandsHasResAnnotations(expressionType) | checkOperandsHasResAnnotations(variableType)) {
+        if (checkOperandsHasResAnnotations(expressionType) || checkOperandsHasResAnnotations(variableType)) {
             checker.report(Result.warning("compound.assignment.not.allowed", kind), node);
         }
 
@@ -63,18 +63,18 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
      *  Method to check XXXRes annotations.
      *
      * @param annotatedTypeMirror
-     * @return whether the given [AnnotatedTypeMirror] contains the XXXRes annoations or not.
+     * @return whether the given [AnnotatedTypeMirror] contains the XXXRes annotations or not.
      */
     public boolean checkOperandsHasResAnnotations(AnnotatedTypeMirror annotatedTypeMirror) {
-        return annotatedTypeMirror.hasAnnotation(AnimatorRes.class) | annotatedTypeMirror.hasAnnotation(AnimRes.class)
-                | annotatedTypeMirror.hasAnnotation(AnyRes.class) | annotatedTypeMirror.hasAnnotation(ArrayRes.class)
-                | annotatedTypeMirror.hasAnnotation(AttrRes.class) | annotatedTypeMirror.hasAnnotation(BoolRes.class)
-                | annotatedTypeMirror.hasAnnotation(ColorRes.class) | annotatedTypeMirror.hasAnnotation(DimenRes.class)
-                | annotatedTypeMirror.hasAnnotation(DrawableRes.class) | annotatedTypeMirror.hasAnnotation(FractionRes.class)
-                | annotatedTypeMirror.hasAnnotation(IdRes.class) | annotatedTypeMirror.hasAnnotation(IntegerRes.class)
-                | annotatedTypeMirror.hasAnnotation(InterpolatorRes.class) | annotatedTypeMirror.hasAnnotation(LayoutRes.class)
-                | annotatedTypeMirror.hasAnnotation(MenuRes.class) | annotatedTypeMirror.hasAnnotation(PluralsRes.class)
-                | annotatedTypeMirror.hasAnnotation(RawRes.class) | annotatedTypeMirror.hasAnnotation(StringRes.class)
-                | annotatedTypeMirror.hasAnnotation(StyleableRes.class) | annotatedTypeMirror.hasAnnotation(XmlRes.class);
+        return annotatedTypeMirror.hasAnnotation(AnimatorRes.class) || annotatedTypeMirror.hasAnnotation(AnimRes.class)
+                || annotatedTypeMirror.hasAnnotation(AnyRes.class) || annotatedTypeMirror.hasAnnotation(ArrayRes.class)
+                || annotatedTypeMirror.hasAnnotation(AttrRes.class) || annotatedTypeMirror.hasAnnotation(BoolRes.class)
+                || annotatedTypeMirror.hasAnnotation(ColorRes.class) || annotatedTypeMirror.hasAnnotation(DimenRes.class)
+                || annotatedTypeMirror.hasAnnotation(DrawableRes.class) || annotatedTypeMirror.hasAnnotation(FractionRes.class)
+                || annotatedTypeMirror.hasAnnotation(IdRes.class) || annotatedTypeMirror.hasAnnotation(IntegerRes.class)
+                || annotatedTypeMirror.hasAnnotation(InterpolatorRes.class) || annotatedTypeMirror.hasAnnotation(LayoutRes.class)
+                || annotatedTypeMirror.hasAnnotation(MenuRes.class) || annotatedTypeMirror.hasAnnotation(PluralsRes.class)
+                || annotatedTypeMirror.hasAnnotation(RawRes.class) || annotatedTypeMirror.hasAnnotation(StringRes.class)
+                || annotatedTypeMirror.hasAnnotation(StyleableRes.class) || annotatedTypeMirror.hasAnnotation(XmlRes.class);
     }
 }

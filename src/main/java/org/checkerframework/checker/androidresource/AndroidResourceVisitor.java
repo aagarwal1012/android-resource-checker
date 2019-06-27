@@ -30,7 +30,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
 //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-        if (checkOperandsHasResAnnotations(leftOperandType) || checkOperandsHasResAnnotations(rightOperandType)) {
+        if (checkAnnotatedTypeHasResAnnotations(leftOperandType) || checkAnnotatedTypeHasResAnnotations(rightOperandType)) {
             checker.report(Result.warning("binary.operation.not.allowed", kind), node);
         }
 
@@ -52,7 +52,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
 //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-        if (checkOperandsHasResAnnotations(expressionType) || checkOperandsHasResAnnotations(variableType)) {
+        if (checkAnnotatedTypeHasResAnnotations(expressionType) || checkAnnotatedTypeHasResAnnotations(variableType)) {
             checker.report(Result.warning("compound.assignment.not.allowed", kind), node);
         }
 
@@ -62,10 +62,9 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
     /**
      *  Method to check XXXRes annotations.
      *
-     * @param annotatedTypeMirror
      * @return whether the given [AnnotatedTypeMirror] contains the XXXRes annotations or not.
      */
-    public boolean checkOperandsHasResAnnotations(AnnotatedTypeMirror annotatedTypeMirror) {
+    public boolean checkAnnotatedTypeHasResAnnotations(AnnotatedTypeMirror annotatedTypeMirror) {
         return annotatedTypeMirror.hasAnnotation(AnimatorRes.class) || annotatedTypeMirror.hasAnnotation(AnimRes.class)
                 || annotatedTypeMirror.hasAnnotation(AnyRes.class) || annotatedTypeMirror.hasAnnotation(ArrayRes.class)
                 || annotatedTypeMirror.hasAnnotation(AttrRes.class) || annotatedTypeMirror.hasAnnotation(BoolRes.class)

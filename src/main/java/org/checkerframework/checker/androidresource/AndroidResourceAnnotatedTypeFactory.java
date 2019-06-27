@@ -1,6 +1,8 @@
 package org.checkerframework.checker.androidresource;
 
+import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MemberSelectTree;
+import org.checkerframework.checker.androidresource.qual.ResourceTop;
 import org.checkerframework.checker.androidresource.qual.container.*;
 import org.checkerframework.checker.androidresource.qual.res.*;
 import org.checkerframework.common.basetype.BaseAnnotatedTypeFactory;
@@ -14,6 +16,9 @@ import org.checkerframework.javacutil.AnnotationBuilder;
 import javax.lang.model.element.AnnotationMirror;
 
 public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactory {
+
+    protected final AnnotationMirror RESOURCE_TOP =
+            AnnotationBuilder.fromClass(elements, ResourceTop.class);
 
     protected final AnnotationMirror ANIMATOR_RES =
             AnnotationBuilder.fromClass(elements, AnimatorRes.class);
@@ -106,8 +111,8 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
 
     private class AndroidResourceTreeAnnotator extends TreeAnnotator {
 
-        public AndroidResourceTreeAnnotator(AnnotatedTypeFactory atypeFactory) {
-            super(atypeFactory);
+        public AndroidResourceTreeAnnotator(AnnotatedTypeFactory annotatedTypeFactory) {
+            super(annotatedTypeFactory);
         }
 
         /*
@@ -122,7 +127,7 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
 
             assignContainerAnnotations(annotatedTypeMirror, expression, identifier);
 
-            assignResAnnotations(annotatedTypeMirror, expression);
+            assignResAnnotations(annotatedTypeMirror, node.getExpression());
 
 //            System.out.println("Expression: " + node.getExpression() + ", Identifier: " + node.getIdentifier()
 //                    + ", ATM: " + annotatedTypeMirror.toString() + "\n");
@@ -132,73 +137,77 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
 
         /**
          * Assign @XXXRes annotations to member select.
+         * First it checks whether the expression has the @XXXContainer annotation
+         * then allocates the corresponding @XXXRes annotation.
          *
          * @param annotatedTypeMirror
-         * @param expression
+         * @param expressionTree
          */
-        private void assignResAnnotations(AnnotatedTypeMirror annotatedTypeMirror, String expression) {
-            if (expression.startsWith("R.")) {
-                String containerExpression = expression.substring(2);
-                switch (containerExpression) {
-                    case "animator":
-                        annotatedTypeMirror.replaceAnnotation(ANIMATOR_RES);
-                        break;
-                    case "anim":
-                        annotatedTypeMirror.replaceAnnotation(ANIM_RES);
-                        break;
-                    case "array":
-                        annotatedTypeMirror.replaceAnnotation(ARRAY_RES);
-                        break;
-                    case "attr":
-                        annotatedTypeMirror.replaceAnnotation(ATTR_RES);
-                        break;
-                    case "bool":
-                        annotatedTypeMirror.replaceAnnotation(BOOL_RES);
-                        break;
-                    case "color":
-                        annotatedTypeMirror.replaceAnnotation(COLOR_RES);
-                        break;
-                    case "dimen":
-                        annotatedTypeMirror.replaceAnnotation(DIMEN_RES);
-                        break;
-                    case "drawable":
-                        annotatedTypeMirror.replaceAnnotation(DRAWABLE_RES);
-                        break;
-                    case "fraction":
-                        annotatedTypeMirror.replaceAnnotation(FRACTION_RES);
-                        break;
-                    case "id":
-                        annotatedTypeMirror.replaceAnnotation(ID_RES);
-                        break;
-                    case "integer":
-                        annotatedTypeMirror.replaceAnnotation(INTEGER_RES);
-                        break;
-                    case "interpolator":
-                        annotatedTypeMirror.replaceAnnotation(INTERPOLATOR_RES);
-                        break;
-                    case "layout":
-                        annotatedTypeMirror.replaceAnnotation(LAYOUT_RES);
-                        break;
-                    case "menu":
-                        annotatedTypeMirror.replaceAnnotation(MENU_RES);
-                        break;
-                    case "plurals":
-                        annotatedTypeMirror.replaceAnnotation(PLURALS_RES);
-                        break;
-                    case "raw":
-                        annotatedTypeMirror.replaceAnnotation(RAW_RES);
-                        break;
-                    case "string":
-                        annotatedTypeMirror.replaceAnnotation(STRING_RES);
-                        break;
-                    case "styleable":
-                        annotatedTypeMirror.replaceAnnotation(STYLEABLE_RES);
-                        break;
-                    case "xml":
-                        annotatedTypeMirror.replaceAnnotation(XML_RES);
-                        break;
-                }
+        private void assignResAnnotations(AnnotatedTypeMirror annotatedTypeMirror, ExpressionTree expressionTree) {
+
+            AnnotatedTypeMirror expressionAnnotatedTypeMirror = getAnnotatedType(expressionTree);
+
+            // Get the annotation from the [ResourceTop] sub-hierarchy, if such an annotation targets this type; otherwise returns null.
+            AnnotationMirror expressionContainerAnnotation = expressionAnnotatedTypeMirror.getAnnotationInHierarchy(RESOURCE_TOP);
+
+            if (expressionContainerAnnotation.equals(ANIMATOR_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(ANIMATOR_RES);
+
+            } else if (expressionContainerAnnotation.equals(ANIM_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(ANIM_RES);
+
+            } else if (expressionContainerAnnotation.equals(ARRAY_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(ARRAY_RES);
+
+            } else if (expressionContainerAnnotation.equals(ATTR_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(ATTR_RES);
+
+            } else if (expressionContainerAnnotation.equals(BOOL_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(BOOL_RES);
+
+            } else if (expressionContainerAnnotation.equals(COLOR_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(COLOR_RES);
+
+            } else if (expressionContainerAnnotation.equals(DIMEN_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(DIMEN_RES);
+
+            } else if (expressionContainerAnnotation.equals(DRAWABLE_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(DRAWABLE_RES);
+
+            } else if (expressionContainerAnnotation.equals(FRACTION_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(FRACTION_RES);
+
+            } else if (expressionContainerAnnotation.equals(ID_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(ID_RES);
+
+            } else if (expressionContainerAnnotation.equals(INTEGER_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(INTEGER_RES);
+
+            } else if (expressionContainerAnnotation.equals(INTERPOLATOR_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(INTERPOLATOR_RES);
+
+            } else if (expressionContainerAnnotation.equals(LAYOUT_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(LAYOUT_RES);
+
+            } else if (expressionContainerAnnotation.equals(MENU_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(MENU_RES);
+
+            } else if (expressionContainerAnnotation.equals(PLURALS_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(PLURALS_RES);
+
+            } else if (expressionContainerAnnotation.equals(RAW_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(RAW_RES);
+
+            } else if (expressionContainerAnnotation.equals(STRING_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(STRING_RES);
+
+            } else if (expressionContainerAnnotation.equals(STYLEABLE_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(STYLEABLE_RES);
+
+            } else if (expressionContainerAnnotation.equals(XML_CONTAINER)) {
+                annotatedTypeMirror.replaceAnnotation(XML_RES);
             }
+
         }
 
         /**

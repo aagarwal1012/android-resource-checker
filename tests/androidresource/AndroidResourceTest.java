@@ -1,5 +1,4 @@
 import org.checkerframework.checker.androidresource.qual.res.*;
-import org.checkerframework.checker.androidresource.qual.Resource;
 import src.R;
 
 class AndroidResourceTest {

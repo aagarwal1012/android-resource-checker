@@ -1,7 +1,6 @@
 package org.checkerframework.checker.androidresource;
 
 import com.sun.source.tree.MemberSelectTree;
-import org.checkerframework.checker.androidresource.qual.Resource;
 import org.checkerframework.checker.androidresource.qual.container.*;
 import org.checkerframework.checker.androidresource.qual.res.*;
 import org.checkerframework.common.basetype.BaseAnnotatedTypeFactory;
@@ -16,11 +15,6 @@ import javax.lang.model.element.AnnotationMirror;
 
 public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactory {
 
-    protected final AnnotationMirror RESOURCE =
-            AnnotationBuilder.fromClass(elements, Resource.class);
-
-    protected final AnnotationMirror ANY_RES =
-            AnnotationBuilder.fromClass(elements, AnyRes.class);
     protected final AnnotationMirror ANIMATOR_RES =
             AnnotationBuilder.fromClass(elements, AnimatorRes.class);
     protected final AnnotationMirror ANIM_RES =

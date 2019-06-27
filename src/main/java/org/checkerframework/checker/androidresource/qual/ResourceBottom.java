@@ -13,8 +13,7 @@ import java.lang.annotation.*;
         AnimatorContainer.class, AnimContainer.class, ArrayContainer.class, AttrContainer.class,
         BoolContainer.class, ColorContainer.class, DimenContainer.class, DrawableContainer.class, FractionContainer.class,
         IdContainer.class, IntegerContainer.class, InterpolatorContainer.class, LayoutContainer.class, MenuContainer.class,
-        PluralsContainer.class, RawContainer.class, StringContainer.class, StyleableContainer.class, XmlContainer.class,
-        Resource.class,})
+        PluralsContainer.class, RawContainer.class, StringContainer.class, StyleableContainer.class, XmlContainer.class,})
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
 @TargetLocations({TypeUseLocation.EXPLICIT_LOWER_BOUND, TypeUseLocation.EXPLICIT_UPPER_BOUND})

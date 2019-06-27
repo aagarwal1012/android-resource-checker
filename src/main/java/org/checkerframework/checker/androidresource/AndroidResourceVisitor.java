@@ -4,13 +4,30 @@ import com.sun.source.tree.BinaryTree;
 import com.sun.source.tree.CompoundAssignmentTree;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.Tree.Kind;
-import org.checkerframework.checker.androidresource.qual.res.*;
+import org.checkerframework.checker.androidresource.qual.ResourceBottom;
+import org.checkerframework.checker.androidresource.qual.ResourceTop;
 import org.checkerframework.common.basetype.BaseTypeChecker;
 import org.checkerframework.common.basetype.BaseTypeVisitor;
 import org.checkerframework.framework.source.Result;
 import org.checkerframework.framework.type.AnnotatedTypeMirror;
+import org.checkerframework.javacutil.AnnotationBuilder;
+
+import javax.lang.model.element.AnnotationMirror;
 
 public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnotatedTypeFactory> {
+
+    /**
+     * The @ResourceTop annotation.
+     */
+    protected final AnnotationMirror RESOURCE_TOP =
+            AnnotationBuilder.fromClass(elements, ResourceTop.class);
+
+    /**
+     * The @ResourceBottom annotation.
+     */
+    protected final AnnotationMirror RESOURCE_BOTTOM =
+            AnnotationBuilder.fromClass(elements, ResourceBottom.class);
+
     public AndroidResourceVisitor(BaseTypeChecker checker) {
         super(checker);
     }
@@ -30,7 +47,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
 //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-        if (checkOperandsHasResAnnotations(leftOperandType) | checkOperandsHasResAnnotations(rightOperandType)) {
+        if (checkAnnotatedTypeHasResOrContainerAnnotations(leftOperandType) || checkAnnotatedTypeHasResOrContainerAnnotations(rightOperandType)) {
             checker.report(Result.warning("binary.operation.not.allowed", kind), node);
         }
 
@@ -52,7 +69,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
 //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-        if (checkOperandsHasResAnnotations(expressionType) | checkOperandsHasResAnnotations(variableType)) {
+        if (checkAnnotatedTypeHasResOrContainerAnnotations(expressionType) || checkAnnotatedTypeHasResOrContainerAnnotations(variableType)) {
             checker.report(Result.warning("compound.assignment.not.allowed", kind), node);
         }
 
@@ -60,21 +77,19 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
     }
 
     /**
-     *  Method to check XXXRes annotations.
+     * Method to check XXXRes or XXXContainer annotations.
      *
-     * @param annotatedTypeMirror
-     * @return whether the given [AnnotatedTypeMirror] contains the XXXRes annoations or not.
+     * @return whether the given [AnnotatedTypeMirror] contains the XXXRes or XXXContainer annotations or not.
      */
-    public boolean checkOperandsHasResAnnotations(AnnotatedTypeMirror annotatedTypeMirror) {
-        return annotatedTypeMirror.hasAnnotation(AnimatorRes.class) | annotatedTypeMirror.hasAnnotation(AnimRes.class)
-                | annotatedTypeMirror.hasAnnotation(AnyRes.class) | annotatedTypeMirror.hasAnnotation(ArrayRes.class)
-                | annotatedTypeMirror.hasAnnotation(AttrRes.class) | annotatedTypeMirror.hasAnnotation(BoolRes.class)
-                | annotatedTypeMirror.hasAnnotation(ColorRes.class) | annotatedTypeMirror.hasAnnotation(DimenRes.class)
-                | annotatedTypeMirror.hasAnnotation(DrawableRes.class) | annotatedTypeMirror.hasAnnotation(FractionRes.class)
-                | annotatedTypeMirror.hasAnnotation(IdRes.class) | annotatedTypeMirror.hasAnnotation(IntegerRes.class)
-                | annotatedTypeMirror.hasAnnotation(InterpolatorRes.class) | annotatedTypeMirror.hasAnnotation(LayoutRes.class)
-                | annotatedTypeMirror.hasAnnotation(MenuRes.class) | annotatedTypeMirror.hasAnnotation(PluralsRes.class)
-                | annotatedTypeMirror.hasAnnotation(RawRes.class) | annotatedTypeMirror.hasAnnotation(StringRes.class)
-                | annotatedTypeMirror.hasAnnotation(StyleableRes.class) | annotatedTypeMirror.hasAnnotation(XmlRes.class);
+    public boolean checkAnnotatedTypeHasResOrContainerAnnotations(AnnotatedTypeMirror annotatedTypeMirror) {
+
+        AnnotationMirror annotationMirror = annotatedTypeMirror.getAnnotationInHierarchy(RESOURCE_TOP);
+
+        if (annotationMirror == null)
+            return false;
+        else if (annotationMirror.equals(RESOURCE_TOP) || annotationMirror.equals(RESOURCE_BOTTOM))
+            return false;
+        else
+            return true;
     }
 }

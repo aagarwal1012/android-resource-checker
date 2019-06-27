@@ -28,7 +28,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
         Kind kind = node.getKind();
 
-        System.out.println(node.toString() + ", " + node.getKind() + "\n");
+//        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
         if (checkOperandsHasResAnnotations(leftOperandType) | checkOperandsHasResAnnotations(rightOperandType)) {
             checker.report(Result.warning("binary.operation.not.allowed", kind), node);
@@ -50,7 +50,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
         Kind kind = node.getKind();
 
-        System.out.println(node.toString() + ", " + node.getKind() + "\n");
+//        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
         if (checkOperandsHasResAnnotations(expressionType) | checkOperandsHasResAnnotations(variableType)) {
             checker.report(Result.warning("compound.assignment.not.allowed", kind), node);

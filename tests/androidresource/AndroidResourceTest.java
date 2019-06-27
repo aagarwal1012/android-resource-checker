@@ -10,12 +10,11 @@ class AndroidResourceTest {
         int a = 10;
         int b = 20;
 
-        @SuppressWarnings("binary.operation.not.allowed")
-        int c = xml_res - b; // CF gives warning "binary.operation.not.allowed"
+        // :: warning: (binary.operation.not.allowed)
+        int c = xml_res - b;
 
-        @SuppressWarnings("compound.assignment.not.allowed")
-        xml_res += xml_res;  // CF gives warning "compound.assignment.not.allowed"
-//        xml_res = R.string.file_paths;    // Flagged by CF
+        // :: warning: (compound.assignment.not.allowed)
+        xml_res += xml_res;
     }
 
 

@@ -139,15 +139,47 @@ class AndroidResourceTest {
 
     }
 
-    void Test() {
-        @XmlRes int xml_res = R.xml.file_paths;
+    void OtherResTest() {
 
+        init();
+
+        // :: error: (assignment.type.incompatible)
+        xml_res = anim_res;
+
+        // :: error: (assignment.type.incompatible)
+        dimen_res = any_res;
+
+        // :: error: (assignment.type.incompatible)
+        drawable_res = a;
+
+        b = interpolator_res;
+
+
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        string_res = xml_res + b;
+
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        drawable_res = anim_res - integer_res;
+
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        menu_res = a * b;
 
         // :: warning: (binary.operation.not.allowed)
-        c = xml_res - b;
+        c = plurals_res / attr_res;
+
+
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.not.allowed)
+        id_res += a;
+
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.not.allowed)
+        layout_res -= fraction_res;
+
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.not.allowed)
+        bool_res *= animator_res;
 
         // :: warning: (compound.assignment.not.allowed)
-        xml_res += xml_res;
+        b /= dimen_res;
+
     }
 
 }

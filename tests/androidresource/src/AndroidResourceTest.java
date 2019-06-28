@@ -150,5 +150,4 @@ class AndroidResourceTest {
         xml_res += xml_res;
     }
 
-
 }

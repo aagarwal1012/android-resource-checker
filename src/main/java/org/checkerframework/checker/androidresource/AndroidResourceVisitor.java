@@ -93,3 +93,4 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
             return true;
     }
 }
+

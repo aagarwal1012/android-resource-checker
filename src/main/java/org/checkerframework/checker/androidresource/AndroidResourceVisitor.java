@@ -47,8 +47,15 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
 //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-        if (checkAnnotatedTypeHasResOrContainerAnnotations(leftOperandType) || checkAnnotatedTypeHasResOrContainerAnnotations(rightOperandType)) {
-            checker.report(Result.warning("binary.operation.not.allowed", kind), node);
+        switch (kind) {
+            case EQUAL_TO:
+                break;
+            case NOT_EQUAL_TO:
+                break;
+            default:
+                if (checkAnnotatedTypeHasResOrContainerAnnotations(leftOperandType) || checkAnnotatedTypeHasResOrContainerAnnotations(rightOperandType)) {
+                    checker.report(Result.warning("binary.operation.not.allowed", kind), node);
+                }
         }
 
         return super.visitBinary(node, aVoid);
@@ -93,3 +100,4 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
             return true;
     }
 }
+

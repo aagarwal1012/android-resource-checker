@@ -67,6 +67,8 @@ class AndroidResourceTest {
 
     int c;
 
+    boolean d;
+
     AndroidResourceTest() {
     }
 
@@ -123,6 +125,9 @@ class AndroidResourceTest {
 
         // :: warning: (binary.operation.not.allowed)
         a = animator_res - styleable_res;
+
+        d = any_res == animator_res;
+        d = any_res != integer_res;
 
 
         // :: warning: (compound.assignment.not.allowed)

@@ -9,3 +9,4 @@ import org.checkerframework.common.basetype.BaseTypeChecker;
  * https://checkerframework.org/manual/#creating-a-checker
  */
 public class AndroidResourceChecker extends BaseTypeChecker {}
+

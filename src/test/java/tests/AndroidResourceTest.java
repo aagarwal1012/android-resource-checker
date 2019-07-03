@@ -23,8 +23,7 @@ public class AndroidResourceTest extends CheckerFrameworkPerDirectoryTest {
                 "androidresource",
                 "-Anomsgtext",
                 "-Astubs=stubs/",
-                "-nowarn",
-                "-Afilenames", "-Ashowchecks", "-AshowInferenceSteps");
+                "-nowarn");
     }
 
     @Parameters

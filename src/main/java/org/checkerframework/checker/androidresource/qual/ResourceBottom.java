@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
         BoolRes.class, ColorRes.class, DimenRes.class, DrawableRes.class, FractionRes.class,
         IdRes.class, IntegerRes.class, InterpolatorRes.class, LayoutRes.class, MenuRes.class,
         PluralsRes.class, RawRes.class, StringRes.class, StyleableRes.class, XmlRes.class,
-        Resource.class, })
+        Resource.class,})
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
 @TargetLocations({TypeUseLocation.EXPLICIT_LOWER_BOUND, TypeUseLocation.EXPLICIT_UPPER_BOUND})

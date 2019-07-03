@@ -1,6 +1,6 @@
 package org.checkerframework.checker.androidresource.qual.res;
 
-import org.checkerframework.framework.qual.*;
+import org.checkerframework.framework.qual.SubtypeOf;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

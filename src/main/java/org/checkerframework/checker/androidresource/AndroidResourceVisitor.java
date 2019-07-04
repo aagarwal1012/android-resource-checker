@@ -11,6 +11,7 @@ import org.checkerframework.common.basetype.BaseTypeVisitor;
 import org.checkerframework.framework.source.Result;
 import org.checkerframework.framework.type.AnnotatedTypeMirror;
 import org.checkerframework.javacutil.AnnotationBuilder;
+import org.checkerframework.javacutil.AnnotationUtils;
 
 import javax.lang.model.element.AnnotationMirror;
 
@@ -94,7 +95,7 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
         if (annotationMirror == null)
             return false;
-        else if (annotationMirror.equals(RESOURCE_TOP) || annotationMirror.equals(RESOURCE_BOTTOM))
+        else if (AnnotationUtils.areSame(annotationMirror, RESOURCE_TOP) || AnnotationUtils.areSame(annotationMirror, RESOURCE_BOTTOM))
             return false;
         else
             return true;

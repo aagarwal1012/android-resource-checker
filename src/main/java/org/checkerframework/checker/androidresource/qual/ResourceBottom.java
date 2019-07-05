@@ -12,6 +12,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * The bottom type in the AndroidResource type system. Programmers should rarely write this type.
+ */
 @SubtypeOf({AnimatorRes.class, AnimRes.class, ArrayRes.class, AttrRes.class,
         BoolRes.class, ColorRes.class, DimenRes.class, DrawableRes.class, FractionRes.class,
         IdRes.class, IntegerRes.class, InterpolatorRes.class, LayoutRes.class, MenuRes.class,

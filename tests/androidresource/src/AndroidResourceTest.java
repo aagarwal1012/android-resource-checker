@@ -120,29 +120,29 @@ class AndroidResourceTest {
         // :: error: (assignment.type.incompatible)
         any_res = a + b;
 
-        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.right.operand.found.resource)
         any_res = a / xml_res;
 
-        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.left.operand.found.resource)
         any_res = any_res * b;
 
-        // :: warning: (binary.operation.not.allowed)
+        // :: warning: (binary.operation.both.operand.found.resource)
         a = animator_res - styleable_res;
 
         d = any_res == animator_res;
         d = any_res != integer_res;
 
 
-        // :: warning: (compound.assignment.not.allowed)
+        // :: warning: (compound.assignment.both.found.resource)
         any_res += a;
 
-        // :: warning: (compound.assignment.not.allowed)
+        // :: warning: (compound.assignment.both.found.resource)
         a *= any_res;
 
-        // :: warning: (compound.assignment.not.allowed)
+        // :: warning: (compound.assignment.both.found.resource)
         any_res /= anim_res;
 
-        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.not.allowed)
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.variable.found.resource)
         any_res -= b;
 
     }
@@ -163,29 +163,29 @@ class AndroidResourceTest {
         b = interpolator_res;
 
 
-        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.both.operand.found.resource)
         string_res = xml_res + b;
 
-        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.both.operand.found.resource)
         drawable_res = anim_res - integer_res;
 
-        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.not.allowed)
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.right.operand.found.resource)
         menu_res = a * b;
 
-        // :: warning: (binary.operation.not.allowed)
+        // :: warning: (binary.operation.both.operand.found.resource)
         c = plurals_res / attr_res;
 
 
-        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.not.allowed)
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.variable.found.resource)
         id_res += a;
 
-        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.not.allowed)
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.both.found.resource)
         layout_res -= fraction_res;
 
-        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.not.allowed)
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.both.found.resource)
         bool_res *= animator_res;
 
-        // :: warning: (compound.assignment.not.allowed)
+        // :: warning: (compound.assignment.both.found.resource)
         b /= dimen_res;
 
     }

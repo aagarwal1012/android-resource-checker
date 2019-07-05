@@ -3,6 +3,7 @@ package org.checkerframework.checker.androidresource;
 import com.sun.source.tree.BinaryTree;
 import com.sun.source.tree.CompoundAssignmentTree;
 import com.sun.source.tree.ExpressionTree;
+import com.sun.source.tree.Tree;
 import com.sun.source.tree.Tree.Kind;
 import org.checkerframework.checker.androidresource.qual.ResourceBottom;
 import org.checkerframework.checker.androidresource.qual.ResourceTop;
@@ -15,6 +16,15 @@ import org.checkerframework.javacutil.AnnotationUtils;
 
 import javax.lang.model.element.AnnotationMirror;
 
+/**
+ * A type checking visitor for android-resource type system.
+ *
+ * <p>
+ * It gives warning when any variable/literal having {@code @XXXRes} or
+ * {@code @XXXContainer} performs any binary operation{except {@code EQUAL_TO}
+ * and {@code NOT_EQUAL_TO}} or compound assignment.
+ * </p>
+ */
 public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnotatedTypeFactory> {
 
     /**
@@ -34,15 +44,11 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
     }
 
     /**
-     * Gives a warning whenever operands in a binary assignment have a annotation of type @XXXRes.
+     * Gives a warning whenever operands in a binary assignment have a annotation
+     * of type <code>@XXXRes</code> or <code>@XXXContainer</code>.
      */
     @Override
     public Void visitBinary(BinaryTree node, Void aVoid) {
-
-        ExpressionTree leftOperand = node.getLeftOperand();
-        ExpressionTree rightOperand = node.getRightOperand();
-        AnnotatedTypeMirror leftOperandType = atypeFactory.getAnnotatedType(leftOperand);
-        AnnotatedTypeMirror rightOperandType = atypeFactory.getAnnotatedType(rightOperand);
 
         Kind kind = node.getKind();
 
@@ -50,55 +56,84 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
         switch (kind) {
             case EQUAL_TO:
-                break;
             case NOT_EQUAL_TO:
                 break;
+
             default:
-                if (checkAnnotatedTypeHasResOrContainerAnnotations(leftOperandType) || checkAnnotatedTypeHasResOrContainerAnnotations(rightOperandType)) {
-                    checker.report(Result.warning("binary.operation.not.allowed", kind), node);
-                }
+                giveBinaryOperationWarning(node, kind);
         }
 
         return super.visitBinary(node, aVoid);
     }
 
+    protected void giveBinaryOperationWarning(BinaryTree node, Kind kind) {
+
+        AnnotatedTypeMirror leftOperandType = atypeFactory.getAnnotatedType(node.getLeftOperand());
+        AnnotatedTypeMirror rightOperandType = atypeFactory.getAnnotatedType(node.getRightOperand());
+
+        boolean leftOperandHasResOrContainerAnnotation = checkAnnotatedTypeHasResOrContainerAnnotations(leftOperandType);
+        boolean rightOperandHasResOrContainerAnnotation = checkAnnotatedTypeHasResOrContainerAnnotations(rightOperandType);
+
+        if (leftOperandHasResOrContainerAnnotation && !rightOperandHasResOrContainerAnnotation)
+            checker.report(Result.warning("binary.operation.left.operand.found.resource", kind, leftOperandType), node);
+
+        else if (!leftOperandHasResOrContainerAnnotation && rightOperandHasResOrContainerAnnotation)
+            checker.report(Result.warning("binary.operation.right.operand.found.resource", kind, rightOperandType), node);
+
+        else if (leftOperandHasResOrContainerAnnotation && rightOperandHasResOrContainerAnnotation)
+            checker.report(Result.warning("binary.operation.both.operand.found.resource", kind, leftOperandType, rightOperandType), node);
+
+    }
+
     /**
-     * Gives a warning whenever expression/variable in a compound assignment have a annotation of type @XXXRes.
+     * Gives a warning whenever expression/variable in a compound assignment have a
+     * annotation of type <code>@XXXRes</code> or <code>@XXXContainer</code>.
      */
     @Override
     public Void visitCompoundAssignment(CompoundAssignmentTree node, Void p) {
 
-        ExpressionTree expression = node.getExpression();
-        ExpressionTree variable = node.getVariable();
-        AnnotatedTypeMirror expressionType = atypeFactory.getAnnotatedType(expression);
-        AnnotatedTypeMirror variableType = atypeFactory.getAnnotatedType(variable);
+        AnnotatedTypeMirror expressionType = atypeFactory.getAnnotatedType(node.getExpression());
+        AnnotatedTypeMirror variableType = atypeFactory.getAnnotatedType(node.getVariable());
 
         Kind kind = node.getKind();
 
+        boolean expressionTypeHasResOrContainerAnnotations = checkAnnotatedTypeHasResOrContainerAnnotations(expressionType);
+        boolean variableTypeHasResOrContainerAnnotations = checkAnnotatedTypeHasResOrContainerAnnotations(variableType);
+
 //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
-        if (checkAnnotatedTypeHasResOrContainerAnnotations(expressionType) || checkAnnotatedTypeHasResOrContainerAnnotations(variableType)) {
-            checker.report(Result.warning("compound.assignment.not.allowed", kind), node);
-        }
+
+        if (expressionTypeHasResOrContainerAnnotations && !variableTypeHasResOrContainerAnnotations)
+            checker.report(Result.warning("compound.assignment.expression.found.resource", kind, expressionType), node);
+
+        else if (!expressionTypeHasResOrContainerAnnotations && variableTypeHasResOrContainerAnnotations)
+            checker.report(Result.warning("compound.assignment.variable.found.resource", kind, variableType), node);
+
+        else if (expressionTypeHasResOrContainerAnnotations && variableTypeHasResOrContainerAnnotations)
+            checker.report(Result.warning("compound.assignment.both.found.resource", kind, expressionType, variableType), node);
 
         return super.visitCompoundAssignment(node, p);
     }
 
     /**
-     * Method to check XXXRes or XXXContainer annotations.
+     * Method to check <code>@XXXRes</code> or <code>@XXXContainer</code> annotations.
      *
-     * @return whether the given [AnnotatedTypeMirror] contains the XXXRes or XXXContainer annotations or not.
+     * @return whether the given {@link AnnotatedTypeMirror} contains the <code>@XXXRes</code>
+     * or <code>@XXXContainer</code> annotations or not.
      */
     public boolean checkAnnotatedTypeHasResOrContainerAnnotations(AnnotatedTypeMirror annotatedTypeMirror) {
 
         AnnotationMirror annotationMirror = annotatedTypeMirror.getAnnotationInHierarchy(RESOURCE_TOP);
 
+        boolean hasAnnotation;
+
         if (annotationMirror == null)
-            return false;
+            hasAnnotation = false;
         else if (AnnotationUtils.areSame(annotationMirror, RESOURCE_TOP) || AnnotationUtils.areSame(annotationMirror, RESOURCE_BOTTOM))
-            return false;
+            hasAnnotation = false;
         else
-            return true;
+            hasAnnotation = true;
+
+        return hasAnnotation;
     }
 }
-

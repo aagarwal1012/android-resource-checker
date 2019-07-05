@@ -66,6 +66,9 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
         return super.visitBinary(node, aVoid);
     }
 
+    /**
+     * Issues warning to the {@link BinaryTree} node.
+     */
     protected void giveBinaryOperationWarning(BinaryTree node, Kind kind) {
 
         AnnotatedTypeMirror leftOperandType = atypeFactory.getAnnotatedType(node.getLeftOperand());

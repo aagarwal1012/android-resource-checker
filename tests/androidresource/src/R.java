@@ -1,3 +1,6 @@
+/**
+ * Dummy resource class like in Android for testing purposes.
+ */
 public final class R {
     public R() {
     }

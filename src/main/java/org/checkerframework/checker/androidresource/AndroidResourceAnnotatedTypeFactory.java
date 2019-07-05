@@ -17,7 +17,7 @@ import org.checkerframework.javacutil.AnnotationUtils;
 import javax.lang.model.element.AnnotationMirror;
 
 /**
- * AndroidResourceAnnotatedTypeFactory build types with @XXXRes and @XXXContainer annotations.
+ * AndroidResourceAnnotatedTypeFactory build types with <code>@XXXRes</code> or <code>@XXXContainer</code> annotations.
  */
 public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactory {
 
@@ -255,9 +255,9 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
         }
 
         /**
-         * Assign @XXXRes annotations to member select.
-         * First it checks whether the expression has the @XXXContainer annotation
-         * then allocates the corresponding @XXXRes annotation.
+         * Assign <code>@XXXRes</code> annotations to member select.
+         * First it checks whether the expression has the <code>@XXXContainer</code> annotation
+         * then allocates the corresponding <code>@XXXRes</code> annotation.
          */
         private void assignResAnnotations(AnnotatedTypeMirror annotatedTypeMirror, ExpressionTree expressionTree) {
 
@@ -332,7 +332,7 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
         }
 
         /**
-         * Assigning @XXXContainer annotations to member select.
+         * Assigning <code>@XXXContainer</code> annotations to member select.
          */
         private void assignContainerAnnotations(AnnotatedTypeMirror annotatedTypeMirror, MemberSelectTree node) {
 

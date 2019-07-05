@@ -1,5 +1,8 @@
 import org.checkerframework.checker.androidresource.qual.res.*;
 
+/**
+ * Tests for AndroidResource-Checker
+ */
 class AndroidResourceTest {
 
     @AnimatorRes

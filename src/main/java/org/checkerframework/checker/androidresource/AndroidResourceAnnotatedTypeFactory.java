@@ -28,6 +28,12 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
             AnnotationBuilder.fromClass(elements, ResourceTop.class);
 
     /**
+     * The @AnyRes annotation.
+     */
+    protected final AnnotationMirror ANY_RES =
+            AnnotationBuilder.fromClass(elements, AnyRes.class);
+
+    /**
      * The @AnimatorRes annotation.
      */
     protected final AnnotationMirror ANIMATOR_RES =
@@ -221,9 +227,36 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
 
     public AndroidResourceAnnotatedTypeFactory(BaseTypeChecker checker) {
         super(checker);
+        makeAndroidAnnotationsAliasesToChecker();
         postInit();
     }
 
+    /**
+     * Make the Android <code>@XXXRes</code> annotations aliases to <i>android-resource-checker</i> annotations.
+     */
+    private void makeAndroidAnnotationsAliasesToChecker(){
+        addAliasedAnnotation("android.support.annotation.AnyRes", ANY_RES);
+
+        addAliasedAnnotation("android.support.annotation.AnimatorRes", ANIMATOR_RES);
+        addAliasedAnnotation("android.support.annotation.AnimRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.ArrayRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.AttrRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.BoolRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.ColorRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.DimenRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.DrawableRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.FractionRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.IdRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.IntegerRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.InterpolatorRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.LayoutRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.MenuRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.PluralsRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.RawRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.StringRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.StyleableRes", ANY_RES);
+        addAliasedAnnotation("android.support.annotation.XmlRes", ANY_RES);
+    }
 
     @Override
     protected TreeAnnotator createTreeAnnotator() {

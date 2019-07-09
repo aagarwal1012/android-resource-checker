@@ -15,6 +15,9 @@ import org.checkerframework.javacutil.AnnotationBuilder;
 import org.checkerframework.javacutil.AnnotationUtils;
 
 import javax.lang.model.element.AnnotationMirror;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * AndroidResourceAnnotatedTypeFactory build types with <code>@XXXRes</code> or <code>@XXXContainer</code> annotations.
@@ -225,6 +228,15 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     protected final AnnotationMirror XML_CONTAINER =
             AnnotationBuilder.fromClass(elements, XmlContainer.class);
 
+    /**
+     * Aliases for Android @{@code XXXRes} annotations.
+     */
+    private static final List<String> ANDROID_ALIASES = Arrays.asList(
+            // https://developer.android.com/reference/android/support/annotation/package-summary
+            "android.support.annotation.",
+            // https://developer.android.com/reference/androidx/annotation/package-summary
+            "androidx.annotation.");
+
     public AndroidResourceAnnotatedTypeFactory(BaseTypeChecker checker) {
         super(checker);
         makeAndroidAnnotationsAliasesToChecker();
@@ -234,28 +246,31 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     /**
      * Make the Android <code>@XXXRes</code> annotations aliases to <i>android-resource-checker</i> annotations.
      */
-    private void makeAndroidAnnotationsAliasesToChecker(){
-        addAliasedAnnotation("android.support.annotation.AnyRes", ANY_RES);
+    private void makeAndroidAnnotationsAliasesToChecker() {
 
-        addAliasedAnnotation("android.support.annotation.AnimatorRes", ANIMATOR_RES);
-        addAliasedAnnotation("android.support.annotation.AnimRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.ArrayRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.AttrRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.BoolRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.ColorRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.DimenRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.DrawableRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.FractionRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.IdRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.IntegerRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.InterpolatorRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.LayoutRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.MenuRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.PluralsRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.RawRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.StringRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.StyleableRes", ANY_RES);
-        addAliasedAnnotation("android.support.annotation.XmlRes", ANY_RES);
+        ANDROID_ALIASES.forEach((annotation) -> {
+            addAliasedAnnotation(annotation + "AnyRes", ANY_RES);
+
+            addAliasedAnnotation(annotation + "AnimatorRes", ANIMATOR_RES);
+            addAliasedAnnotation(annotation + "AnimRes", ANIM_RES);
+            addAliasedAnnotation(annotation + "ArrayRes", ARRAY_RES);
+            addAliasedAnnotation(annotation + "AttrRes", ATTR_RES);
+            addAliasedAnnotation(annotation + "BoolRes", BOOL_RES);
+            addAliasedAnnotation(annotation + "ColorRes", COLOR_RES);
+            addAliasedAnnotation(annotation + "DimenRes", DIMEN_RES);
+            addAliasedAnnotation(annotation + "DrawableRes", DRAWABLE_RES);
+            addAliasedAnnotation(annotation + "FractionRes", FRACTION_RES);
+            addAliasedAnnotation(annotation + "IdRes", ID_RES);
+            addAliasedAnnotation(annotation + "IntegerRes", INTEGER_RES);
+            addAliasedAnnotation(annotation + "InterpolatorRes", INTERPOLATOR_RES);
+            addAliasedAnnotation(annotation + "LayoutRes", LAYOUT_RES);
+            addAliasedAnnotation(annotation + "MenuRes", MENU_RES);
+            addAliasedAnnotation(annotation + "PluralsRes", PLURALS_RES);
+            addAliasedAnnotation(annotation + "RawRes", RAW_RES);
+            addAliasedAnnotation(annotation + "StringRes", STRING_RES);
+            addAliasedAnnotation(annotation + "StyleableRes", STYLEABLE_RES);
+            addAliasedAnnotation(annotation + "XmlRes", XML_RES);
+        });
     }
 
     @Override

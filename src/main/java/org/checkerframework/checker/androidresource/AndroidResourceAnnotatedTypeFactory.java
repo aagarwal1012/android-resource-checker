@@ -232,6 +232,8 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
      * Aliases for Android @{@code XXXRes} annotations.
      */
     private static final List<String> ANDROID_ALIASES = Arrays.asList(
+            // https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/annotation/
+            "android.annotation.",
             // https://developer.android.com/reference/android/support/annotation/package-summary
             "android.support.annotation.",
             // https://developer.android.com/reference/androidx/annotation/package-summary

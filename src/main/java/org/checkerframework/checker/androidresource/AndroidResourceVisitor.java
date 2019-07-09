@@ -126,15 +126,8 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
         AnnotationMirror annotationMirror = annotatedTypeMirror.getAnnotationInHierarchy(RESOURCE_TOP);
 
-        boolean hasAnnotation;
-
-        if (annotationMirror == null)
-            hasAnnotation = false;
-        else if (AnnotationUtils.areSame(annotationMirror, RESOURCE_TOP) || AnnotationUtils.areSame(annotationMirror, RESOURCE_BOTTOM))
-            hasAnnotation = false;
-        else
-            hasAnnotation = true;
-
-        return hasAnnotation;
+        return annotationMirror != null
+                && !AnnotationUtils.areSame(annotationMirror, RESOURCE_TOP)
+                && !AnnotationUtils.areSame(annotationMirror, RESOURCE_BOTTOM);
     }
 }

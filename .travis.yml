@@ -3,3 +3,6 @@ dist: Trusty
 jdk: openjdk8
 script:
   - ./gradlew test --info
+  - ./gradlew jacocoTestReport
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

@@ -15,7 +15,6 @@ import org.checkerframework.javacutil.AnnotationBuilder;
 import org.checkerframework.javacutil.AnnotationUtils;
 
 import javax.lang.model.element.AnnotationMirror;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -229,9 +228,9 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
             AnnotationBuilder.fromClass(elements, XmlContainer.class);
 
     /**
-     * Aliases for Android @{@code XXXRes} annotations.
+     * Contains Android package prefixes for the actual annotations.
      */
-    private static final List<String> ANDROID_ALIASES = Arrays.asList(
+    private static final List<String> ANDROID_PACKAGE_PREFIXES = Arrays.asList(
             // https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/annotation/
             "android.annotation.",
             // https://developer.android.com/reference/android/support/annotation/package-summary
@@ -250,7 +249,7 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
      */
     private void makeAndroidAnnotationsAliasesToChecker() {
 
-        ANDROID_ALIASES.forEach((annotation) -> {
+        ANDROID_PACKAGE_PREFIXES.forEach((annotation) -> {
             addAliasedAnnotation(annotation + "AnyRes", ANY_RES);
 
             addAliasedAnnotation(annotation + "AnimatorRes", ANIMATOR_RES);

@@ -1,4 +1,4 @@
-package android.annotations;
+package android.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
-public @interface RawRes {
+public @interface AnyRes {
 }

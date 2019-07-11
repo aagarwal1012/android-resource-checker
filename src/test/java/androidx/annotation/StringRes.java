@@ -1,4 +1,4 @@
-package androidx.annotations;
+package androidx.annotation;
 
 import java.lang.annotation.*;
 

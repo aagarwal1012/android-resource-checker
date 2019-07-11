@@ -1,6 +1,6 @@
-import androidx.annotations.StringRes;
-import android.annotations.AnyRes;
-import android.annotations.RawRes;
+import androidx.annotation.StringRes;
+import android.annotation.AnyRes;
+import android.annotation.RawRes;
 
 public class AndroidAliasesTest {
 
@@ -37,28 +37,28 @@ public class AndroidAliasesTest {
 
         any_res = string_res;
 
-        // :: warning: (binary.operation.left.operand.found.resource)
+        // :: warning: (binary.operation.both.operand.found.resource)
         a = any_res + b;
 
-        // :: error: (assignment.type.incompatible)
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.both.operand.found.resource)
         string_res = a - b;
 
-        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.both.operand.found.resource)
+        // :: warning: (binary.operation.both.operand.found.resource)
         any_res = raw_res * string_res;
 
-        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.right.operand.found.resource)
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.both.operand.found.resource)
         raw_res = a / any_res;
 
-        // :: warning: (compound.assignment.expression.found.resource)
+        // :: warning: (compound.assignment.both.found.resource)
         a += string_res;
 
-        // :: error: (assignment.type.incompatible) :: warning: (compound.assignment.both.found.resource)
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.both.found.resource)
         raw_res -= any_res;
 
         // :: warning: (compound.assignment.both.found.resource)
         any_res *= string_res;
 
-        // :: error: (assignment.type.incompatible) :: warning: (compound.assignment.variable.found.resource)
+        // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.both.found.resource)
         string_res /= b;
     }
 }

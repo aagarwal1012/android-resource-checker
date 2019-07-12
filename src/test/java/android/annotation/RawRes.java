@@ -1,3 +1,8 @@
+/**
+ * Upstream version:
+ * https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/annotation/RawRes.java
+ * This annotation is only included for testing purpose.
+ */
 package android.annotation;
 
 import java.lang.annotation.Documented;

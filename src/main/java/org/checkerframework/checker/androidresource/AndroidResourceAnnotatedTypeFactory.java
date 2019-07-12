@@ -275,9 +275,9 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     private static final List<String> ANDROID_PACKAGE_PREFIXES = Arrays.asList(
             // https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/annotation/
             "android.annotation.",
-            // https://developer.android.com/reference/android/support/annotation/package-summary
+            // https://android.googlesource.com/platform/frameworks/support/+/master/annotations/src/main/java/android/support/annotation/
             "android.support.annotation.",
-            // https://developer.android.com/reference/androidx/annotation/package-summary
+            // https://android.googlesource.com/platform/frameworks/support/+/master/annotations/src/main/java/androidx/annotation/
             "androidx.annotation.");
 
     /**

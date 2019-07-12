@@ -5,7 +5,6 @@ import com.sun.source.tree.MemberSelectTree;
 import org.checkerframework.checker.androidresource.qual.ResourceTop;
 import org.checkerframework.checker.androidresource.qual.container.*;
 import org.checkerframework.checker.androidresource.qual.res.*;
-import org.checkerframework.com.google.common.collect.ImmutableMap;
 import org.checkerframework.common.basetype.BaseAnnotatedTypeFactory;
 import org.checkerframework.common.basetype.BaseTypeChecker;
 import org.checkerframework.framework.type.AnnotatedTypeFactory;
@@ -16,9 +15,7 @@ import org.checkerframework.javacutil.AnnotationBuilder;
 import org.checkerframework.javacutil.AnnotationUtils;
 
 import javax.lang.model.element.AnnotationMirror;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * AndroidResourceAnnotatedTypeFactory build types with <code>@XXXRes</code> or <code>@XXXContainer</code> annotations.
@@ -283,35 +280,38 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     /**
      * This Map contains {@link AnnotationMirror} to its corresponding annotation name.
      */
-    private final Map<String, AnnotationMirror> ANNOTATION_MIRROR_MAP = ImmutableMap.<String, AnnotationMirror>builder()
-            .put("AnyRes", ANY_RES)
-            .put("AnimatorRes", ANIMATOR_RES)
-            .put("AnimRes", ANIM_RES)
-            .put("ArrayRes", ARRAY_RES)
-            .put("AttrRes", ATTR_RES)
-            .put("BoolRes", BOOL_RES)
-            .put("ColorRes", COLOR_RES)
-            .put("DimenRes", DIMEN_RES)
-            .put("DrawableRes", DRAWABLE_RES)
-            .put("FontRes", FONT_RES)
-            .put("FractionRes", FRACTION_RES)
-            .put("IdRes", ID_RES)
-            .put("IntegerRes", INTEGER_RES)
-            .put("InterpolatorRes", INTERPOLATOR_RES)
-            .put("LayoutRes", LAYOUT_RES)
-            .put("MenuRes", MENU_RES)
-            .put("NavigationRes", NAVIGATION_RES)
-            .put("PluralsRes", PLURALS_RES)
-            .put("RawRes", RAW_RES)
-            .put("StringRes", STRING_RES)
-            .put("StyleableRes", STYLEABLE_RES)
-            .put("StyleRes", STYLE_RES)
-            .put("TransitionRes", TRANSITION_RES)
-            .put("XmlRes", XML_RES)
-            .build();
+    private final Map<String, AnnotationMirror> ANNOTATION_MIRROR_MAP;
 
     public AndroidResourceAnnotatedTypeFactory(BaseTypeChecker checker) {
         super(checker);
+
+        Map<String, AnnotationMirror> tmp = new HashMap<>();
+        tmp.put("AnyRes", ANY_RES);
+        tmp.put("AnimatorRes", ANIMATOR_RES);
+        tmp.put("AnimRes", ANIM_RES);
+        tmp.put("ArrayRes", ARRAY_RES);
+        tmp.put("AttrRes", ATTR_RES);
+        tmp.put("BoolRes", BOOL_RES);
+        tmp.put("ColorRes", COLOR_RES);
+        tmp.put("DimenRes", DIMEN_RES);
+        tmp.put("DrawableRes", DRAWABLE_RES);
+        tmp.put("FontRes", FONT_RES);
+        tmp.put("FractionRes", FRACTION_RES);
+        tmp.put("IdRes", ID_RES);
+        tmp.put("IntegerRes", INTEGER_RES);
+        tmp.put("InterpolatorRes", INTERPOLATOR_RES);
+        tmp.put("LayoutRes", LAYOUT_RES);
+        tmp.put("MenuRes", MENU_RES);
+        tmp.put("NavigationRes", NAVIGATION_RES);
+        tmp.put("PluralsRes", PLURALS_RES);
+        tmp.put("RawRes", RAW_RES);
+        tmp.put("StringRes", STRING_RES);
+        tmp.put("StyleableRes", STYLEABLE_RES);
+        tmp.put("StyleRes", STYLE_RES);
+        tmp.put("TransitionRes", TRANSITION_RES);
+        tmp.put("XmlRes", XML_RES);
+        ANNOTATION_MIRROR_MAP = Collections.unmodifiableMap(tmp);
+
         makeAndroidAnnotationsAliasesToChecker();
         postInit();
     }

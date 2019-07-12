@@ -29,6 +29,9 @@ class AndroidResourceTest {
     @DrawableRes
     int drawable_res;
 
+    @FontRes
+    int font_res;
+
     @FractionRes
     int fraction_res;
 
@@ -47,6 +50,9 @@ class AndroidResourceTest {
     @MenuRes
     int menu_res;
 
+    @NavigationRes
+    int navigation_res;
+
     @PluralsRes
     int plurals_res;
 
@@ -58,6 +64,12 @@ class AndroidResourceTest {
 
     @StyleableRes
     int styleable_res;
+
+    @StyleRes
+    int style_res;
+
+    @TransitionRes
+    int transition_res;
 
     @XmlRes
     int xml_res;
@@ -87,16 +99,20 @@ class AndroidResourceTest {
         color_res = R.color.abc_background_cache_hint_selector_material_dark;
         dimen_res = R.dimen.abc_action_bar_content_inset_material;
         drawable_res = R.drawable.abc_ab_share_pack_mtrl_alpha;
+        font_res = R.font.font_res;
         fraction_res = R.fraction.abc_fraction;
         id_res = R.id.ALT;
         integer_res = R.integer.abc_config_activityDefaultDur;
         interpolator_res = R.interpolator.abc_interpolator;
         layout_res = R.layout.abc_action_bar_view_list_nav_layout;
         menu_res = R.menu.menu_res;
+        navigation_res = R.navigation.navigation_res;
         plurals_res = R.plurals.plurals_res;
         raw_res = R.raw.raw_res;
         string_res = R.string.abc_action_bar_home_description;
         styleable_res = R.styleable.ActionBarLayout_android_layout_gravity;
+        style_res = R.style.style_res;
+        transition_res = R.transition.transition_res;
         xml_res = R.xml.file_paths;
 
     }

@@ -15,6 +15,7 @@ import org.checkerframework.javacutil.AnnotationBuilder;
 import org.checkerframework.javacutil.AnnotationUtils;
 
 import javax.lang.model.element.AnnotationMirror;
+import java.util.*;
 
 /**
  * AndroidResourceAnnotatedTypeFactory build types with <code>@XXXRes</code> or <code>@XXXContainer</code> annotations.
@@ -26,6 +27,12 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
      */
     protected final AnnotationMirror RESOURCE_TOP =
             AnnotationBuilder.fromClass(elements, ResourceTop.class);
+
+    /**
+     * The @AnyRes annotation.
+     */
+    protected final AnnotationMirror ANY_RES =
+            AnnotationBuilder.fromClass(elements, AnyRes.class);
 
     /**
      * The @AnimatorRes annotation.
@@ -259,11 +266,66 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     protected final AnnotationMirror XML_CONTAINER =
             AnnotationBuilder.fromClass(elements, XmlContainer.class);
 
+    /**
+     * Contains Android package prefixes for the actual annotations.
+     */
+    private static final List<String> ANDROID_PACKAGE_PREFIXES = Arrays.asList(
+            // https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/annotation/
+            "android.annotation.",
+            // https://android.googlesource.com/platform/frameworks/support/+/master/annotations/src/main/java/android/support/annotation/
+            "android.support.annotation.",
+            // https://android.googlesource.com/platform/frameworks/support/+/master/annotations/src/main/java/androidx/annotation/
+            "androidx.annotation.");
+
+    /**
+     * This Map contains {@link AnnotationMirror} to its corresponding annotation name.
+     */
+    private final Map<String, AnnotationMirror> ANNOTATION_MIRROR_MAP;
+
     public AndroidResourceAnnotatedTypeFactory(BaseTypeChecker checker) {
         super(checker);
+
+        Map<String, AnnotationMirror> tmp = new HashMap<>();
+        tmp.put("AnyRes", ANY_RES);
+        tmp.put("AnimatorRes", ANIMATOR_RES);
+        tmp.put("AnimRes", ANIM_RES);
+        tmp.put("ArrayRes", ARRAY_RES);
+        tmp.put("AttrRes", ATTR_RES);
+        tmp.put("BoolRes", BOOL_RES);
+        tmp.put("ColorRes", COLOR_RES);
+        tmp.put("DimenRes", DIMEN_RES);
+        tmp.put("DrawableRes", DRAWABLE_RES);
+        tmp.put("FontRes", FONT_RES);
+        tmp.put("FractionRes", FRACTION_RES);
+        tmp.put("IdRes", ID_RES);
+        tmp.put("IntegerRes", INTEGER_RES);
+        tmp.put("InterpolatorRes", INTERPOLATOR_RES);
+        tmp.put("LayoutRes", LAYOUT_RES);
+        tmp.put("MenuRes", MENU_RES);
+        tmp.put("NavigationRes", NAVIGATION_RES);
+        tmp.put("PluralsRes", PLURALS_RES);
+        tmp.put("RawRes", RAW_RES);
+        tmp.put("StringRes", STRING_RES);
+        tmp.put("StyleableRes", STYLEABLE_RES);
+        tmp.put("StyleRes", STYLE_RES);
+        tmp.put("TransitionRes", TRANSITION_RES);
+        tmp.put("XmlRes", XML_RES);
+        ANNOTATION_MIRROR_MAP = Collections.unmodifiableMap(tmp);
+
+        makeAndroidAnnotationsAliasesToChecker();
         postInit();
     }
 
+    /**
+     * Make the Android <code>@XXXRes</code> annotations aliases to <i>android-resource-checker</i> annotations.
+     */
+    private void makeAndroidAnnotationsAliasesToChecker() {
+        ANDROID_PACKAGE_PREFIXES.forEach(
+                (packagePrefix) -> ANNOTATION_MIRROR_MAP.forEach(
+                        (annotationName, annotation) -> addAliasedAnnotation(packagePrefix + annotationName, annotation)
+                )
+        );
+    }
 
     @Override
     protected TreeAnnotator createTreeAnnotator() {

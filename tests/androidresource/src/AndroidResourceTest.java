@@ -5,77 +5,31 @@ import org.checkerframework.checker.androidresource.qual.res.*;
  */
 class AndroidResourceTest {
 
-    @AnimatorRes
-    int animator_res;
+    @AnimatorRes int animator_res;
+    @AnimRes int anim_res;
+    @ArrayRes int array_res;
+    @AttrRes int attr_res;
+    @BoolRes int bool_res;
+    @ColorRes int color_res;
+    @DimenRes int dimen_res;
+    @DrawableRes int drawable_res;
+    @FontRes int font_res;
+    @FractionRes int fraction_res;
+    @IdRes int id_res;
+    @IntegerRes int integer_res;
+    @InterpolatorRes int interpolator_res;
+    @LayoutRes int layout_res;
+    @MenuRes int menu_res;
+    @NavigationRes int navigation_res;
+    @PluralsRes int plurals_res;
+    @RawRes int raw_res;
+    @StringRes int string_res;
+    @StyleableRes int styleable_res;
+    @StyleRes int style_res;
+    @TransitionRes int transition_res;
+    @XmlRes int xml_res;
 
-    @AnimRes
-    int anim_res;
-
-    @ArrayRes
-    int array_res;
-
-    @AttrRes
-    int attr_res;
-
-    @BoolRes
-    int bool_res;
-
-    @ColorRes
-    int color_res;
-
-    @DimenRes
-    int dimen_res;
-
-    @DrawableRes
-    int drawable_res;
-
-    @FontRes
-    int font_res;
-
-    @FractionRes
-    int fraction_res;
-
-    @IdRes
-    int id_res;
-
-    @IntegerRes
-    int integer_res;
-
-    @InterpolatorRes
-    int interpolator_res;
-
-    @LayoutRes
-    int layout_res;
-
-    @MenuRes
-    int menu_res;
-
-    @NavigationRes
-    int navigation_res;
-
-    @PluralsRes
-    int plurals_res;
-
-    @RawRes
-    int raw_res;
-
-    @StringRes
-    int string_res;
-
-    @StyleableRes
-    int styleable_res;
-
-    @StyleRes
-    int style_res;
-
-    @TransitionRes
-    int transition_res;
-
-    @XmlRes
-    int xml_res;
-
-    @AnyRes
-    int any_res;
+    @AnyRes int any_res;
 
     int a = 10;
     int b = 20;

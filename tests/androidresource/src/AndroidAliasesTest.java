@@ -4,13 +4,10 @@ import android.annotation.RawRes;
 
 public class AndroidAliasesTest {
 
-    @AnyRes
-    int any_res;
-    @RawRes
-    int raw_res;
+    @AnyRes int any_res;
+    @RawRes int raw_res;
 
-    @StringRes
-    int string_res;
+    @StringRes int string_res;
 
     int a = 10;
     int b = 20;

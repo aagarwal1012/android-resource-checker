@@ -300,16 +300,20 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
             addAliasedAnnotation(annotation + "ColorRes", COLOR_RES);
             addAliasedAnnotation(annotation + "DimenRes", DIMEN_RES);
             addAliasedAnnotation(annotation + "DrawableRes", DRAWABLE_RES);
+            addAliasedAnnotation(annotation + "FontRes", FONT_RES);
             addAliasedAnnotation(annotation + "FractionRes", FRACTION_RES);
             addAliasedAnnotation(annotation + "IdRes", ID_RES);
             addAliasedAnnotation(annotation + "IntegerRes", INTEGER_RES);
             addAliasedAnnotation(annotation + "InterpolatorRes", INTERPOLATOR_RES);
             addAliasedAnnotation(annotation + "LayoutRes", LAYOUT_RES);
             addAliasedAnnotation(annotation + "MenuRes", MENU_RES);
+            addAliasedAnnotation(annotation + "NavigationRes", NAVIGATION_RES);
             addAliasedAnnotation(annotation + "PluralsRes", PLURALS_RES);
             addAliasedAnnotation(annotation + "RawRes", RAW_RES);
             addAliasedAnnotation(annotation + "StringRes", STRING_RES);
             addAliasedAnnotation(annotation + "StyleableRes", STYLEABLE_RES);
+            addAliasedAnnotation(annotation + "StyleRes", STYLE_RES);
+            addAliasedAnnotation(annotation + "TransitionRes", TRANSITION_RES);
             addAliasedAnnotation(annotation + "XmlRes", XML_RES);
         });
     }

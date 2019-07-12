@@ -159,4 +159,32 @@ public final class R {
         public raw() {
         }
     }
+
+    public static final class font {
+        public static final int font_res = 2130771968;
+
+        public font() {
+        }
+    }
+
+    public static final class navigation {
+        public static final int navigation_res = 2130771968;
+
+        public navigation() {
+        }
+    }
+
+    public static final class style {
+        public static final int style_res = 2130771968;
+
+        public style() {
+        }
+    }
+
+    public static final class transition {
+        public static final int transition_res = 2130771968;
+
+        public transition() {
+        }
+    }
 }

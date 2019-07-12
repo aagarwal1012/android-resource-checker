@@ -1,13 +1,18 @@
-import androidx.annotation.StringRes;
-import android.annotation.AnyRes;
-import android.annotation.RawRes;
+import org.checkerframework.checker.androidresource.qual.res.*;
 
+/**
+ * Tests to make sure that Android annotations aliases to the checker annotations.
+ */
 public class AndroidAliasesTest {
 
-    @AnyRes int any_res;
-    @RawRes int raw_res;
+    @android.annotation.AnyRes int android_any_res;
+    @android.annotation.RawRes int android_raw_res;
 
-    @StringRes int string_res;
+    @androidx.annotation.StringRes int android_string_res;
+
+    @RawRes int checker_raw_res;
+    @AnyRes int checker_any_res;
+    @StyleRes int checker_style_res;
 
     int a = 10;
     int b = 20;
@@ -18,44 +23,55 @@ public class AndroidAliasesTest {
     }
 
     void init() {
-        any_res = R.plurals.plurals_res;
-        raw_res = R.raw.raw_res;
+        android_any_res = R.plurals.plurals_res;
+        android_raw_res = R.raw.raw_res;
 
-        string_res = R.string.abc_action_bar_home_description;
+        android_string_res = R.string.abc_action_bar_home_description;
     }
 
     void test() {
         init();
 
         // :: error: (assignment.type.incompatible)
-        any_res = a;
+        android_any_res = a;
 
-        b = raw_res;
+        b = android_raw_res;
 
-        any_res = string_res;
-
-        // :: warning: (binary.operation.both.operand.found.resource)
-        a = any_res + b;
-
-        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.both.operand.found.resource)
-        string_res = a - b;
+        android_any_res = android_string_res;
 
         // :: warning: (binary.operation.both.operand.found.resource)
-        any_res = raw_res * string_res;
+        a = android_any_res + b;
 
         // :: error: (assignment.type.incompatible) :: warning: (binary.operation.both.operand.found.resource)
-        raw_res = a / any_res;
+        android_string_res = a - b;
+
+        // :: warning: (binary.operation.both.operand.found.resource)
+        android_any_res = android_raw_res * android_string_res;
+
+        // :: error: (assignment.type.incompatible) :: warning: (binary.operation.both.operand.found.resource)
+        android_raw_res = a / android_any_res;
 
         // :: warning: (compound.assignment.both.found.resource)
-        a += string_res;
+        a += android_string_res;
 
         // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.both.found.resource)
-        raw_res -= any_res;
+        android_raw_res -= android_any_res;
 
         // :: warning: (compound.assignment.both.found.resource)
-        any_res *= string_res;
+        android_any_res *= android_string_res;
 
         // :: error: (compound.assignment.type.incompatible) :: warning: (compound.assignment.both.found.resource)
-        string_res /= b;
+        android_string_res /= b;
+    }
+
+    void assignTest(){
+        init();
+
+        checker_any_res = android_string_res;
+
+        checker_raw_res = android_raw_res;
+
+        // :: error: (assignment.type.incompatible)
+        checker_style_res = android_any_res;
     }
 }

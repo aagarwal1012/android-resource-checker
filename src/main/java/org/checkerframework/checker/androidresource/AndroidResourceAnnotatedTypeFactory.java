@@ -131,7 +131,7 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
      * The @StyleRes annotation.
      */
     protected final AnnotationMirror STYLE_RES =
-            AnnotationBuilder.fromClass(elements, StyleableRes.class);
+            AnnotationBuilder.fromClass(elements, StyleRes.class);
     /**
      * The @TransitionRes annotation.
      */
@@ -247,7 +247,7 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
      * The @StyleContainer annotation.
      */
     protected final AnnotationMirror STYLE_CONTAINER =
-            AnnotationBuilder.fromClass(elements, AnimContainer.class);
+            AnnotationBuilder.fromClass(elements, StyleContainer.class);
     /**
      * The @TransitionContainer annotation.
      */

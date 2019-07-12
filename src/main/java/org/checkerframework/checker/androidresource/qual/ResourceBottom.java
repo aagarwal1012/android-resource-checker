@@ -19,10 +19,12 @@ import java.lang.annotation.Target;
         BoolRes.class, ColorRes.class, DimenRes.class, DrawableRes.class, FractionRes.class,
         IdRes.class, IntegerRes.class, InterpolatorRes.class, LayoutRes.class, MenuRes.class,
         PluralsRes.class, RawRes.class, StringRes.class, StyleableRes.class, XmlRes.class,
+        FontRes.class, NavigationRes.class, StyleRes.class, TransitionRes.class,
         AnimatorContainer.class, AnimContainer.class, ArrayContainer.class, AttrContainer.class,
         BoolContainer.class, ColorContainer.class, DimenContainer.class, DrawableContainer.class, FractionContainer.class,
         IdContainer.class, IntegerContainer.class, InterpolatorContainer.class, LayoutContainer.class, MenuContainer.class,
-        PluralsContainer.class, RawContainer.class, StringContainer.class, StyleableContainer.class, XmlContainer.class,})
+        PluralsContainer.class, RawContainer.class, StringContainer.class, StyleableContainer.class, XmlContainer.class,
+        FontContainer.class, NavigationContainer.class, StyleContainer.class, TransitionContainer.class,})
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
 @TargetLocations({TypeUseLocation.EXPLICIT_LOWER_BOUND, TypeUseLocation.EXPLICIT_UPPER_BOUND})

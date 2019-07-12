@@ -76,6 +76,11 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     protected final AnnotationMirror DRAWABLE_RES =
             AnnotationBuilder.fromClass(elements, DrawableRes.class);
     /**
+     * The @FontRes annotation.
+     */
+    protected final AnnotationMirror FONT_RES =
+            AnnotationBuilder.fromClass(elements, FontRes.class);
+    /**
      * The @FractionRes annotation.
      */
     protected final AnnotationMirror FRACTION_RES =
@@ -106,6 +111,11 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     protected final AnnotationMirror MENU_RES =
             AnnotationBuilder.fromClass(elements, MenuRes.class);
     /**
+     * The @NavigationRes annotation.
+     */
+    protected final AnnotationMirror NAVIGATION_RES =
+            AnnotationBuilder.fromClass(elements, NavigationRes.class);
+    /**
      * The @PluralsRes annotation.
      */
     protected final AnnotationMirror PLURALS_RES =
@@ -125,6 +135,16 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
      */
     protected final AnnotationMirror STYLEABLE_RES =
             AnnotationBuilder.fromClass(elements, StyleableRes.class);
+    /**
+     * The @StyleRes annotation.
+     */
+    protected final AnnotationMirror STYLE_RES =
+            AnnotationBuilder.fromClass(elements, StyleRes.class);
+    /**
+     * The @TransitionRes annotation.
+     */
+    protected final AnnotationMirror TRANSITION_RES =
+            AnnotationBuilder.fromClass(elements, TransitionRes.class);
     /**
      * The @XmlRes annotation.
      */
@@ -172,6 +192,11 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     protected final AnnotationMirror DRAWABLE_CONTAINER =
             AnnotationBuilder.fromClass(elements, DrawableContainer.class);
     /**
+     * The @FontContainer annotation.
+     */
+    protected final AnnotationMirror FONT_CONTAINER =
+            AnnotationBuilder.fromClass(elements, FontContainer.class);
+    /**
      * The @FractionContainer annotation.
      */
     protected final AnnotationMirror FRACTION_CONTAINER =
@@ -202,6 +227,11 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
     protected final AnnotationMirror MENU_CONTAINER =
             AnnotationBuilder.fromClass(elements, MenuContainer.class);
     /**
+     * The @NavigationContainer annotation.
+     */
+    protected final AnnotationMirror NAVIGATION_CONTAINER =
+            AnnotationBuilder.fromClass(elements, NavigationContainer.class);
+    /**
      * The @PluralsContainer annotation.
      */
     protected final AnnotationMirror PLURALS_CONTAINER =
@@ -221,6 +251,16 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
      */
     protected final AnnotationMirror STYLEABLE_CONTAINER =
             AnnotationBuilder.fromClass(elements, StyleableContainer.class);
+    /**
+     * The @StyleContainer annotation.
+     */
+    protected final AnnotationMirror STYLE_CONTAINER =
+            AnnotationBuilder.fromClass(elements, StyleContainer.class);
+    /**
+     * The @TransitionContainer annotation.
+     */
+    protected final AnnotationMirror TRANSITION_CONTAINER =
+            AnnotationBuilder.fromClass(elements, TransitionContainer.class);
     /**
      * The @XmlContainer annotation.
      */
@@ -345,6 +385,9 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
             else if (AnnotationUtils.areSame(expressionContainerAnnotation, DRAWABLE_CONTAINER))
                 annotatedTypeMirror.replaceAnnotation(DRAWABLE_RES);
 
+            else if (AnnotationUtils.areSame(expressionContainerAnnotation, FONT_CONTAINER))
+                annotatedTypeMirror.replaceAnnotation(FONT_RES);
+
             else if (AnnotationUtils.areSame(expressionContainerAnnotation, FRACTION_CONTAINER))
                 annotatedTypeMirror.replaceAnnotation(FRACTION_RES);
 
@@ -363,6 +406,9 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
             else if (AnnotationUtils.areSame(expressionContainerAnnotation, MENU_CONTAINER))
                 annotatedTypeMirror.replaceAnnotation(MENU_RES);
 
+            else if (AnnotationUtils.areSame(expressionContainerAnnotation, NAVIGATION_CONTAINER))
+                annotatedTypeMirror.replaceAnnotation(NAVIGATION_RES);
+
             else if (AnnotationUtils.areSame(expressionContainerAnnotation, PLURALS_CONTAINER))
                 annotatedTypeMirror.replaceAnnotation(PLURALS_RES);
 
@@ -374,6 +420,12 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
 
             else if (AnnotationUtils.areSame(expressionContainerAnnotation, STYLEABLE_CONTAINER))
                 annotatedTypeMirror.replaceAnnotation(STYLEABLE_RES);
+
+            else if (AnnotationUtils.areSame(expressionContainerAnnotation, STYLE_CONTAINER))
+                annotatedTypeMirror.replaceAnnotation(STYLE_RES);
+
+            else if (AnnotationUtils.areSame(expressionContainerAnnotation, TRANSITION_CONTAINER))
+                annotatedTypeMirror.replaceAnnotation(TRANSITION_RES);
 
             else if (AnnotationUtils.areSame(expressionContainerAnnotation, XML_CONTAINER))
                 annotatedTypeMirror.replaceAnnotation(XML_RES);
@@ -418,6 +470,9 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
                 case "drawable":
                     annotatedTypeMirror.replaceAnnotation(DRAWABLE_CONTAINER);
                     break;
+                case "font":
+                    annotatedTypeMirror.replaceAnnotation(FONT_CONTAINER);
+                    break;
                 case "fraction":
                     annotatedTypeMirror.replaceAnnotation(FRACTION_CONTAINER);
                     break;
@@ -436,6 +491,9 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
                 case "menu":
                     annotatedTypeMirror.replaceAnnotation(MENU_CONTAINER);
                     break;
+                case "navigation":
+                    annotatedTypeMirror.replaceAnnotation(NAVIGATION_CONTAINER);
+                    break;
                 case "plurals":
                     annotatedTypeMirror.replaceAnnotation(PLURALS_CONTAINER);
                     break;
@@ -447,6 +505,12 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
                     break;
                 case "styleable":
                     annotatedTypeMirror.replaceAnnotation(STYLEABLE_CONTAINER);
+                    break;
+                case "style":
+                    annotatedTypeMirror.replaceAnnotation(STYLE_CONTAINER);
+                    break;
+                case "transition":
+                    annotatedTypeMirror.replaceAnnotation(TRANSITION_CONTAINER);
                     break;
                 case "xml":
                     annotatedTypeMirror.replaceAnnotation(XML_CONTAINER);

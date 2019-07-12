@@ -5,6 +5,7 @@ import com.sun.source.tree.MemberSelectTree;
 import org.checkerframework.checker.androidresource.qual.ResourceTop;
 import org.checkerframework.checker.androidresource.qual.container.*;
 import org.checkerframework.checker.androidresource.qual.res.*;
+import org.checkerframework.com.google.common.collect.ImmutableMap;
 import org.checkerframework.common.basetype.BaseAnnotatedTypeFactory;
 import org.checkerframework.common.basetype.BaseTypeChecker;
 import org.checkerframework.framework.type.AnnotatedTypeFactory;
@@ -17,6 +18,7 @@ import org.checkerframework.javacutil.AnnotationUtils;
 import javax.lang.model.element.AnnotationMirror;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * AndroidResourceAnnotatedTypeFactory build types with <code>@XXXRes</code> or <code>@XXXContainer</code> annotations.
@@ -278,6 +280,36 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
             // https://developer.android.com/reference/androidx/annotation/package-summary
             "androidx.annotation.");
 
+    /**
+     * This Map contains {@link AnnotationMirror} to its corresponding annotation name.
+     */
+    private final Map<String, AnnotationMirror> ANNOTATION_MIRROR_MAP = ImmutableMap.<String, AnnotationMirror>builder()
+            .put("AnyRes", ANY_RES)
+            .put("AnimatorRes", ANIMATOR_RES)
+            .put("AnimRes", ANIM_RES)
+            .put("ArrayRes", ARRAY_RES)
+            .put("AttrRes", ATTR_RES)
+            .put("BoolRes", BOOL_RES)
+            .put("ColorRes", COLOR_RES)
+            .put("DimenRes", DIMEN_RES)
+            .put("DrawableRes", DRAWABLE_RES)
+            .put("FontRes", FONT_RES)
+            .put("FractionRes", FRACTION_RES)
+            .put("IdRes", ID_RES)
+            .put("IntegerRes", INTEGER_RES)
+            .put("InterpolatorRes", INTERPOLATOR_RES)
+            .put("LayoutRes", LAYOUT_RES)
+            .put("MenuRes", MENU_RES)
+            .put("NavigationRes", NAVIGATION_RES)
+            .put("PluralsRes", PLURALS_RES)
+            .put("RawRes", RAW_RES)
+            .put("StringRes", STRING_RES)
+            .put("StyleableRes", STYLEABLE_RES)
+            .put("StyleRes", STYLE_RES)
+            .put("TransitionRes", TRANSITION_RES)
+            .put("XmlRes", XML_RES)
+            .build();
+
     public AndroidResourceAnnotatedTypeFactory(BaseTypeChecker checker) {
         super(checker);
         makeAndroidAnnotationsAliasesToChecker();
@@ -288,34 +320,11 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
      * Make the Android <code>@XXXRes</code> annotations aliases to <i>android-resource-checker</i> annotations.
      */
     private void makeAndroidAnnotationsAliasesToChecker() {
-
-        ANDROID_PACKAGE_PREFIXES.forEach((annotation) -> {
-            addAliasedAnnotation(annotation + "AnyRes", ANY_RES);
-
-            addAliasedAnnotation(annotation + "AnimatorRes", ANIMATOR_RES);
-            addAliasedAnnotation(annotation + "AnimRes", ANIM_RES);
-            addAliasedAnnotation(annotation + "ArrayRes", ARRAY_RES);
-            addAliasedAnnotation(annotation + "AttrRes", ATTR_RES);
-            addAliasedAnnotation(annotation + "BoolRes", BOOL_RES);
-            addAliasedAnnotation(annotation + "ColorRes", COLOR_RES);
-            addAliasedAnnotation(annotation + "DimenRes", DIMEN_RES);
-            addAliasedAnnotation(annotation + "DrawableRes", DRAWABLE_RES);
-            addAliasedAnnotation(annotation + "FontRes", FONT_RES);
-            addAliasedAnnotation(annotation + "FractionRes", FRACTION_RES);
-            addAliasedAnnotation(annotation + "IdRes", ID_RES);
-            addAliasedAnnotation(annotation + "IntegerRes", INTEGER_RES);
-            addAliasedAnnotation(annotation + "InterpolatorRes", INTERPOLATOR_RES);
-            addAliasedAnnotation(annotation + "LayoutRes", LAYOUT_RES);
-            addAliasedAnnotation(annotation + "MenuRes", MENU_RES);
-            addAliasedAnnotation(annotation + "NavigationRes", NAVIGATION_RES);
-            addAliasedAnnotation(annotation + "PluralsRes", PLURALS_RES);
-            addAliasedAnnotation(annotation + "RawRes", RAW_RES);
-            addAliasedAnnotation(annotation + "StringRes", STRING_RES);
-            addAliasedAnnotation(annotation + "StyleableRes", STYLEABLE_RES);
-            addAliasedAnnotation(annotation + "StyleRes", STYLE_RES);
-            addAliasedAnnotation(annotation + "TransitionRes", TRANSITION_RES);
-            addAliasedAnnotation(annotation + "XmlRes", XML_RES);
-        });
+        ANDROID_PACKAGE_PREFIXES.forEach(
+                (packagePrefix) -> ANNOTATION_MIRROR_MAP.forEach(
+                        (annotationName, annotation) -> addAliasedAnnotation(packagePrefix + annotationName, annotation)
+                )
+        );
     }
 
     @Override

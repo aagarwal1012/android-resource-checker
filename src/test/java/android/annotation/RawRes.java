@@ -14,5 +14,4 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
-public @interface RawRes {
-}
+public @interface RawRes {}

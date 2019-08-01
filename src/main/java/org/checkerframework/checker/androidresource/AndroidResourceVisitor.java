@@ -43,8 +43,6 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
 
     Kind kind = node.getKind();
 
-    //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
-
     switch (kind) {
       case EQUAL_TO:
       case NOT_EQUAL_TO:
@@ -102,8 +100,6 @@ public class AndroidResourceVisitor extends BaseTypeVisitor<AndroidResourceAnnot
         checkAnnotatedTypeHasResOrContainerAnnotations(expressionType);
     boolean variableTypeHasResOrContainerAnnotations =
         checkAnnotatedTypeHasResOrContainerAnnotations(variableType);
-
-    //        System.out.println(node.toString() + ", " + node.getKind() + "\n");
 
     if (expressionTypeHasResOrContainerAnnotations && !variableTypeHasResOrContainerAnnotations)
       checker.report(

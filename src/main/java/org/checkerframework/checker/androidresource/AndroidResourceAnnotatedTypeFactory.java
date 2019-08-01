@@ -243,10 +243,6 @@ public class AndroidResourceAnnotatedTypeFactory extends BaseAnnotatedTypeFactor
 
       assignResAnnotations(annotatedTypeMirror, node.getExpression());
 
-      //            System.out.println("Expression: " + node.getExpression() + ", Identifier: " +
-      // node.getIdentifier()
-      //                    + ", ATM: " + annotatedTypeMirror.toString() + "\n");
-
       return null;
     }
 

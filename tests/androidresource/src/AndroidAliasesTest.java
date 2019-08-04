@@ -39,29 +39,29 @@ public class AndroidAliasesTest {
     // :: warning: (binary.operation.both.operand.found.resource)
     a = android_any_res + b;
 
-    // :: error: (assignment.type.incompatible) :: warning:
-    // (binary.operation.both.operand.found.resource)
+    // :: error: (assignment.type.incompatible)
+    // :: warning: (binary.operation.both.operand.found.resource)
     android_string_res = a - b;
 
     // :: warning: (binary.operation.both.operand.found.resource)
     android_any_res = android_raw_res * android_string_res;
 
-    // :: error: (assignment.type.incompatible) :: warning:
-    // (binary.operation.both.operand.found.resource)
+    // :: error: (assignment.type.incompatible)
+    // :: warning: (binary.operation.both.operand.found.resource)
     android_raw_res = a / android_any_res;
 
     // :: warning: (compound.assignment.both.found.resource)
     a += android_string_res;
 
-    // :: error: (compound.assignment.type.incompatible) :: warning:
-    // (compound.assignment.both.found.resource)
+    // :: error: (compound.assignment.type.incompatible)
+    // :: warning: (compound.assignment.both.found.resource)
     android_raw_res -= android_any_res;
 
     // :: warning: (compound.assignment.both.found.resource)
     android_any_res *= android_string_res;
 
-    // :: error: (compound.assignment.type.incompatible) :: warning:
-    // (compound.assignment.both.found.resource)
+    // :: error: (compound.assignment.type.incompatible)
+    // :: warning: (compound.assignment.both.found.resource)
     android_string_res /= b;
   }
 

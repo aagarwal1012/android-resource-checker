@@ -12,3 +12,5 @@ out
 
 build
 tests/build
+
+.run-google-java-format

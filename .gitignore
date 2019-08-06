@@ -14,3 +14,6 @@ build
 tests/build
 
 .run-google-java-format
+
+# checker qual
+androidresource-checker-qual/src

@@ -8,3 +8,4 @@
  */
 
 rootProject.name = 'androidresource-checker'
+include 'androidresource-checker-qual'

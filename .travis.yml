@@ -1,6 +1,6 @@
 language: java
 dist: Trusty
-jdk: openjdk8
+jdk: oraclejdk8
 script:
   - ./gradlew test --info
   - ./gradlew jacocoTestReport

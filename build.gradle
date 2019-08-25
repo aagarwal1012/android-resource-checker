@@ -31,7 +31,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'org.checkerframework'
             artifactId = 'androidresource-checker'
-            version = '0.1-SNAPSHOT'
+            version = '1.0'
 
             from components.java
         }

@@ -80,7 +80,7 @@ Like every type-checker built with the Checker Framework, the Android Resource C
 
 ## Rationale
 
-The Android Resource Checker prevents the mixing of different types of resources within the expressions. In Android, most of the resources are of type integer, so there are a high number of chances that the programmer incorrectly pass one resource type to the other. Consider the following Java code :
+The Android Resource Checker prevents the mixing of different types of resources within the expressions. In Android, most of the resources are of type integer and some integer arrays present in `R.array` resource type, so there are a high number of chances that the programmer incorrectly pass one resource type to the other. Consider the following Java code :
 
 ```java
 class AndroidResourceExample {
@@ -184,6 +184,40 @@ Given below are some case studies done on the various Android apps using Android
   is a smart calling assistant to enhance the calling experience of users. It helps you know the context of a call even before picking up. Finally, you can stop pondering why someone called you. It contains **20000+** lines of pure Java code.
 
   The original/unannotated source code of the app can be found in the [**master** ](https://github.com/aagarwal1012/calling_text)branch while the annotated code can be found in the [**androidresource-checker**](https://github.com/aagarwal1012/calling_text/tree/androidresource-checker) branch and corresponding pull request can be seen via the [**link**](https://github.com/aagarwal1012/calling_text/pull/1) so as to compare the changes.
+
+There are more than **300+** annotations used in both of the case studies. I didn’t find any error or suppress any false positives in these case studies.
+While adding annotations in the above case studies, I found that the current Android classes contain some functions which didn't contain Resource annotations, so I have to add them by myself as stub files, follow the link to get what are stub files: [creating a stub file](https://checkerframework.org/manual/#stub-creating). The following stub files are added in order to add annotations to the signatures, leaving the method bodies unchanged:
+
+- `MenuItem` class contains the method named `getItemId()` which needs to be annotated.
+
+  ```java
+  package android.view;
+  
+  import org.checkerframework.checker.androidresource.qual.*;
+  
+  public interface MenuItem {
+  
+    @IdRes int getItemId();
+  
+  }
+  ```
+
+- `View` class contains the method named `getId()` which needs to be annotated.
+
+  ```java
+  package android.view;
+  
+  import org.checkerframework.checker.androidresource.qual.*;
+  
+  class View implements Drawable.Callback, KeyEvent.Callback,
+         AccessibilityEventSource {
+  
+      @IdRes int getId();
+  
+  }
+  ```
+
+  
 
 # License
 Android Resource Checker is licensed under `MIT license`. View [license](https://github.com/aagarwal1012/android-resource-checker/blob/master/LICENSE).
